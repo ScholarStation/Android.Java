@@ -1,6 +1,8 @@
 package WebUtil;
 
 
+import android.os.AsyncTask;
+
 import com.google.gson.Gson;
 
 
@@ -19,7 +21,9 @@ import WebUtil.Profile.ProfileReq;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-
+import java.util.concurrent.Future;
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
 
 
 /**
@@ -43,6 +47,8 @@ public class Webutil {
         HttpPost post = new HttpPost();
         HttpClient client = new DefaultHttpClient();
         Object returnType =WebResponse.class;
+
+
         //determine the path
         if (payload instanceof LoginReq){
             post = new HttpPost(Login);
@@ -59,13 +65,14 @@ public class Webutil {
             post.setHeader("Content-type", "application/json");
             HttpResponse response = client.execute(post);
             //System.out.println();
-            return gson.fromJson(new BufferedReader(new InputStreamReader(response.getEntity().getContent())).readLine(),returnType.getClass());
+            return gson.fromJson(new BufferedReader(new InputStreamReader(response.getEntity().getContent())).readLine(),returnType.getClass()) ;
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            return e;
         }
 
 
-        return "asdasd";
+
     }
 }

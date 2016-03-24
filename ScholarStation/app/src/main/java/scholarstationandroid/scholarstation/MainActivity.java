@@ -3,6 +3,7 @@ package scholarstationandroid.scholarstation;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -18,10 +19,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import layout.Profile;
+
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,Profile.OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,17 +89,16 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            FragmentManager fm = getFragmentManager();
-           FragmentTransaction ft= fm.beginTransaction();
-            Profile pf = Profile.newInstance("test,","tsdes");
-            ft.add(R.id.drawer_layout,pf );
-            ft.commit();
+
 
 
 
         } else if (id == R.id.nav_profile) {
-
+            Intent intent = new Intent(this,ProfileActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_study) {
+            Intent intent = new Intent(this,StudyGroupListView.class);
+            startActivity(intent);
 
         }
 
@@ -107,8 +107,5 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    @Override
-    public void onFragmentInteraction(Uri uri) {
 
-    }
 }
