@@ -8,7 +8,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
-
 import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
@@ -28,9 +27,19 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.content.Intent;
 
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
+
+import WebUtil.Login.LoginReq;
+import WebUtil.Login.LoginRes;
+import WebUtil.Profile.ProfileReq;
+import WebUtil.Profile.ProfileRes;
+import WebUtil.Webutil;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -38,7 +47,8 @@ import static android.Manifest.permission.READ_CONTACTS;
  * A login screen that offers login via email/password.
  */
 public class LoginActivity extends AppCompatActivity {
-
+    String userName = "";
+    String passWord = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,8 +58,93 @@ public class LoginActivity extends AppCompatActivity {
         final EditText pass = (EditText) findViewById(R.id.password);
         final Button signIn = (Button) findViewById(R.id.signInButton);
 
-        String userName = user.getText().toString();
-        String password = pass.getText().toString();
+
+
+        assert user != null;
+        user.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // Do some thing now
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                userName = user.getText().toString();
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                // Do something at this time
+            }
+        });
+        assert pass != null;
+        pass.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // Do some thing now
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                passWord = pass.getText().toString();
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                // Do something at this time
+            }
+        });
+        assert signIn != null;
+        signIn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+
+                class NetworkCallTask extends AsyncTask<Object, Object, Object> {
+                    @Override
+                    protected void onPreExecute() {
+                        super.onPreExecute();
+                    }
+
+                    @Override
+                    protected Object doInBackground(Object... params) {
+                        LoginReq login = new LoginReq();
+                        login.username = userName;
+                        login.password = passWord;
+                        LoginRes loginRes = (LoginRes) new Webutil().webRequest(login);
+
+                        return loginRes;
+                    }
+
+                    @Override
+                    protected void onProgressUpdate(Object... values) {
+                        super.onProgressUpdate(values);
+                    }
+
+                    @Override
+                    protected void onPostExecute(Object o) {
+                        try {
+                            System.out.println("UserName :: " + userName);
+                            System.out.println("Password :: " + passWord);
+                            Intent myIntent = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(myIntent);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                new NetworkCallTask().execute(new Object());
+            }
+                /*LoginReq login = new LoginReq();
+                login.username = userName;
+                login.password = passWord;
+                LoginRes loginRes = (LoginRes) new Webutil().webRequest(login);*/
+
+        });
     }
 }
 

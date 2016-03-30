@@ -80,7 +80,7 @@
     <Button
         android:layout_width="409dp"
         android:layout_height="wrap_content"
-        android:text="Sign Up"
-        android:id="@+id/signUpButton"
+        android:text="Register"
+        android:id="@+id/registerButton"
         android:layout_gravity="center_horizontal" />
 </LinearLayout>
