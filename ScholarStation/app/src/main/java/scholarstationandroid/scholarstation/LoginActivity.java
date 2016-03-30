@@ -58,6 +58,7 @@ public class LoginActivity extends AppCompatActivity {
         final EditText user = (EditText) findViewById(R.id.username);
         final EditText pass = (EditText) findViewById(R.id.password);
         final Button signIn = (Button) findViewById(R.id.signInButton);
+        final Button register = (Button) findViewById(R.id.registerButton);
 
 
 
@@ -143,6 +144,15 @@ public class LoginActivity extends AppCompatActivity {
                 new NetworkCallTask().execute(new Object());
             }
         });
+        assert register != null;
+        register.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
+                startActivity(intent);
+            }
+            });
     }
 }
 
