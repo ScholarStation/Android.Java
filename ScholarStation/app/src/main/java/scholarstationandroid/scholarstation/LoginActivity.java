@@ -40,6 +40,7 @@ import WebUtil.Login.LoginRes;
 import WebUtil.Profile.ProfileReq;
 import WebUtil.Profile.ProfileRes;
 import WebUtil.Webutil;
+import layout.LoginInfo;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -113,10 +114,12 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     protected Object doInBackground(Object... params) {
                         LoginReq login = new LoginReq();
+
                         login.username = userName;
                         login.password = passWord;
                         LoginRes loginRes = (LoginRes) new Webutil().webRequest(login);
-
+                        LoginInfo.username = userName;
+                        LoginInfo.KEY = loginRes.KEY;
                         return loginRes;
                     }
 
@@ -139,11 +142,6 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 new NetworkCallTask().execute(new Object());
             }
-                /*LoginReq login = new LoginReq();
-                login.username = userName;
-                login.password = passWord;
-                LoginRes loginRes = (LoginRes) new Webutil().webRequest(login);*/
-
         });
     }
 }

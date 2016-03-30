@@ -14,6 +14,7 @@ import WebUtil.Login.LoginRes;
 import WebUtil.Profile.ProfileReq;
 import WebUtil.Profile.ProfileRes;
 import WebUtil.Webutil;
+import layout.LoginInfo;
 
 
 public class ProfileActivity extends AppCompatActivity {
@@ -70,13 +71,9 @@ public class ProfileActivity extends AppCompatActivity {
 
             @Override
             protected Object doInBackground(Object... params) {
-                LoginReq login = new LoginReq();
-                login.username = "qwex";
-                login.password = "pass1234";
-                LoginRes loginRes = (LoginRes) new Webutil().webRequest(login);
                 ProfileReq pr = new ProfileReq();
-                pr.username = login.username;
-                pr.KEY = loginRes.KEY;
+                pr.username = LoginInfo.username;
+                pr.KEY = LoginInfo.KEY;
                 ProfileRes profileRes = (ProfileRes) new Webutil().webRequest(pr);
                 return profileRes;
             }
