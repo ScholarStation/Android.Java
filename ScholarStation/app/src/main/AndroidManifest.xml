@@ -30,8 +30,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".SignUpActivity" />
-        <activity android:name=".StudyGroupActivity"></activity>
-        <activity android:name=".RecyclerViewActivity" />
+        <activity
+            android:name=".StudyGroupActivity"
+            android:label="@string/title_activity_study_group"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
