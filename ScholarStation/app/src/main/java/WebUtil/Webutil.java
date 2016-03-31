@@ -12,8 +12,12 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import WebUtil.Login.CreateLoginReq;
+import WebUtil.Login.CreateLoginRes;
 import WebUtil.Login.LoginReq;
 import WebUtil.Login.LoginRes;
+import WebUtil.Profile.CreateProfileReq;
+import WebUtil.Profile.CreateProfileRes;
 import WebUtil.Profile.ProfileRes;
 import WebUtil.Profile.ProfileReq;
 
@@ -33,6 +37,8 @@ public class Webutil {
 
     private  String Login = "http://70.187.52.39:3000/LoginApp";
     private  String ProfileReq = "http://70.187.52.39:3000/ProfileApp";
+    private  String CreateLogin = "http://70.187.52.39:3000/LoginApp/Create";
+    private  String CreateProfle = "http://70.187.52.39:3000/ProfileApp/Create";
     private  String ProfileEdt = "http://70.187.52.39:3000/ProfileUtility/EditByID";//not implemented
     private  String StudyReq = "http://70.187.52.39:3000/StudyUtility/GetStudyGroupsByMember";
     private  String StudyCrt = "http://70.187.52.39:3000/StudyUtility/Create";
@@ -56,6 +62,12 @@ public class Webutil {
         }else if (payload instanceof ProfileReq){
             post = new HttpPost(ProfileReq);
             returnType = new ProfileRes();
+        }else if (payload instanceof CreateLoginReq){
+            post = new HttpPost(CreateLogin);
+            returnType = new CreateLoginRes();
+        }else if (payload instanceof CreateProfileReq){
+            post = new HttpPost(CreateProfle);
+            returnType = new CreateProfileRes();
         }
 
 
@@ -65,6 +77,7 @@ public class Webutil {
             post.setHeader("Content-type", "application/json");
             HttpResponse response = client.execute(post);
             //System.out.println();
+            //System.out.println("Error :: "  + new BufferedReader(new InputStreamReader(response.getEntity().getContent())).readLine());
             return gson.fromJson(new BufferedReader(new InputStreamReader(response.getEntity().getContent())).readLine(),returnType.getClass()) ;
 
         } catch (Exception e) {
