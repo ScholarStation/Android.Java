@@ -96,11 +96,11 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_profile) {
             Intent intent = new Intent(this,ProfileActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_study) {
+        } /*else if (id == R.id.nav_study) {
             Intent intent = new Intent(this,StudyGroupListView.class);
             startActivity(intent);
 
-        }
+        }*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

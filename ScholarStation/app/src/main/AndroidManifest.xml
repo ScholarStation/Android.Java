@@ -21,10 +21,6 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ProfileActivity" />
         <activity
-            android:name=".StudyGroupListView"
-            android:label="@string/title_activity_study_group_list_view"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login">
             <intent-filter>
@@ -33,7 +29,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignUpActivity"></activity>
+        <activity android:name=".SignUpActivity" />
+        <activity android:name=".StudyGroupActivity"></activity>
+        <activity android:name=".RecyclerViewActivity" />
     </application>
 
 </manifest>
