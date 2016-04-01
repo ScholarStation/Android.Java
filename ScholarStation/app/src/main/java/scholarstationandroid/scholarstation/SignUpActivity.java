@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
@@ -44,6 +45,8 @@ public class SignUpActivity extends AppCompatActivity {
         final EditText year = (EditText) findViewById(R.id.signup_year);
         final EditText major = (EditText) findViewById(R.id.signup_major);
         final Button signUp = (Button) findViewById(R.id.signupButton);
+
+        age.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
 
         //<editor-fold desc="On text change">
         assert user != null;
