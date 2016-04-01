@@ -32,7 +32,7 @@ public class ProfileActivity extends AppCompatActivity {
         final EditText year = (EditText) findViewById(R.id.profile_year_text);
         final EditText major = (EditText) findViewById(R.id.profile_major_text);
 
-
+        setTitle(LoginInfo.username + "'s Profile");
 
 
 //

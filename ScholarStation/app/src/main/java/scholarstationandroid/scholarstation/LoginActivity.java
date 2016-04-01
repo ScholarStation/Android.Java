@@ -64,6 +64,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
+
         assert user != null;
         user.addTextChangedListener(new TextWatcher() {
             @Override
