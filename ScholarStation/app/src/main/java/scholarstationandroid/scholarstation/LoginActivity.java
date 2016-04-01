@@ -3,6 +3,7 @@ package scholarstationandroid.scholarstation;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -30,6 +31,7 @@ import android.widget.TextView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.content.Intent;
+import android.widget.Toast;
 
 import java.io.Console;
 import java.util.ArrayList;
@@ -107,6 +109,9 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 class NetworkCallTask extends AsyncTask<Object, Object, Object> {
+
+
+
                     @Override
                     protected void onPreExecute() {
                         super.onPreExecute();
@@ -121,6 +126,19 @@ public class LoginActivity extends AppCompatActivity {
                         LoginRes loginRes = (LoginRes) new Webutil().webRequest(login);
                         LoginInfo.username = userName;
                         LoginInfo.KEY = loginRes.KEY;
+                        if (loginRes.success == true) {
+                            Intent myIntent = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(myIntent);
+                        } else {
+                            LoginActivity.this.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(LoginActivity.this, "Enter a correct username or password",Toast.LENGTH_SHORT).show();
+
+                                }
+                            });
+                        }
+
                         return loginRes;
                     }
 
@@ -132,10 +150,9 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     protected void onPostExecute(Object o) {
                         try {
-                            System.out.println("UserName :: " + userName);
-                            System.out.println("Password :: " + passWord);
-                            Intent myIntent = new Intent(LoginActivity.this, MainActivity.class);
-                            startActivity(myIntent);
+                            //System.out.println("UserName :: " + userName);
+                            // System.out.println("Password :: " + passWord);
+
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -144,6 +161,7 @@ public class LoginActivity extends AppCompatActivity {
                 new NetworkCallTask().execute(new Object());
             }
         });
+
         assert register != null;
         register.setOnClickListener(new View.OnClickListener() {
 
