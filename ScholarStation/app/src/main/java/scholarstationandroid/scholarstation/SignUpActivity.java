@@ -45,6 +45,7 @@ public class SignUpActivity extends AppCompatActivity {
         final EditText major = (EditText) findViewById(R.id.signup_major);
         final Button signUp = (Button) findViewById(R.id.signupButton);
 
+        //<editor-fold desc="On text change">
         assert user != null;
         user.addTextChangedListener(new TextWatcher() {
             @Override
@@ -216,6 +217,7 @@ public class SignUpActivity extends AppCompatActivity {
                 // Do something at this time
             }
         });
+        //</editor-fold>
 
         assert signUp != null;
         signUp.setOnClickListener(new View.OnClickListener() {
