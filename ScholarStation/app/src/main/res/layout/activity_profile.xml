@@ -64,5 +64,12 @@
             android:layout_height="wrap_content"
             android:id="@+id/profile_year_text"
             android:editable="false" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/profile_edit_button"
+            android:text="Edit Profile"/>
     </LinearLayout>
+
 </RelativeLayout>

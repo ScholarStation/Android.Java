@@ -18,8 +18,11 @@ import WebUtil.Login.LoginReq;
 import WebUtil.Login.LoginRes;
 import WebUtil.Profile.CreateProfileReq;
 import WebUtil.Profile.CreateProfileRes;
+import WebUtil.Profile.EditProfileReq;
+import WebUtil.Profile.EditProfileRes;
 import WebUtil.Profile.ProfileRes;
 import WebUtil.Profile.ProfileReq;
+import scholarstationandroid.scholarstation.EditProfile;
 
 
 import java.io.BufferedReader;
@@ -38,8 +41,8 @@ public class Webutil {
     private  String Login = "http://70.187.52.39:3000/LoginApp";
     private  String ProfileReq = "http://70.187.52.39:3000/ProfileApp";
     private  String CreateLogin = "http://70.187.52.39:3000/LoginApp/Create";
-    private  String CreateProfle = "http://70.187.52.39:3000/ProfileApp/Create";
-    private  String ProfileEdt = "http://70.187.52.39:3000/ProfileUtility/EditByID";//not implemented
+    private  String CreateProfile = "http://70.187.52.39:3000/ProfileApp/Create";
+    private  String ProfileEdit = "http://70.187.52.39:3000/ProfileUtility/EditByID";//not implemented
     private  String StudyReq = "http://70.187.52.39:3000/StudyUtility/GetStudyGroupsByMember";
     private  String StudyCrt = "http://70.187.52.39:3000/StudyUtility/Create";
     private  String StudyEdt = "http://70.187.52.39:3000/StudyUtility/EditByID";
@@ -66,8 +69,11 @@ public class Webutil {
             post = new HttpPost(CreateLogin);
             returnType = new CreateLoginRes();
         }else if (payload instanceof CreateProfileReq){
-            post = new HttpPost(CreateProfle);
+            post = new HttpPost(CreateProfile);
             returnType = new CreateProfileRes();
+        }else if (payload instanceof EditProfileReq){
+            post = new HttpPost(ProfileEdit);
+            returnType = new EditProfileRes();
         }
 
 

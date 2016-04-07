@@ -1,8 +1,11 @@
 package scholarstationandroid.scholarstation;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import java.util.Objects;
@@ -31,6 +34,7 @@ public class ProfileActivity extends AppCompatActivity {
         final EditText email = (EditText) findViewById(R.id.profile_email_text);
         final EditText year = (EditText) findViewById(R.id.profile_year_text);
         final EditText major = (EditText) findViewById(R.id.profile_major_text);
+        final Button editButton = (Button) findViewById(R.id.profile_edit_button);
 
         setTitle(LoginInfo.username + "'s Profile");
 
@@ -100,6 +104,15 @@ public class ProfileActivity extends AppCompatActivity {
             }
         }
         new NetworkCallTask().execute(new Object());
+
+        assert editButton != null;
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ProfileActivity.this,EditProfile.class);
+                startActivity(intent);
+            }
+        });
 
     }
 }
