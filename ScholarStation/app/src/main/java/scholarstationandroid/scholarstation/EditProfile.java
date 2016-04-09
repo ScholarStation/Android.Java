@@ -26,6 +26,8 @@ public class EditProfile extends AppCompatActivity {
     String editEmail = "";
     String editYear = "";
     String editMajor = "";
+    EditProfileReq editProfileReq = new EditProfileReq();
+    ProfileRes profileRes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +57,7 @@ public class EditProfile extends AppCompatActivity {
                 ProfileReq pr = new ProfileReq();
                 pr.username = LoginInfo.username;
                 pr.KEY = LoginInfo.KEY;
-                ProfileRes profileRes = (ProfileRes) new Webutil().webRequest(pr);
+                profileRes = (ProfileRes) new Webutil().webRequest(pr);
                 return profileRes;
             }
 
@@ -227,7 +229,7 @@ public class EditProfile extends AppCompatActivity {
 
                     @Override
                     protected Object doInBackground(Object... params){
-                        EditProfileReq editProfileReq = new EditProfileReq();
+
                         editProfileReq.fname = firstName;
                         editProfileReq.lname = lastName;
                         editProfileReq.age = editAge;
@@ -235,6 +237,8 @@ public class EditProfile extends AppCompatActivity {
                         editProfileReq.year = editYear;
                         editProfileReq.major = editMajor;
                         editProfileReq.email = editEmail;
+                        editProfileReq._id = profileRes._id;
+
                         WebResponse editProfileRes = (WebResponse) new Webutil().webRequest(editProfileReq);
                         return editProfileRes;
                     }

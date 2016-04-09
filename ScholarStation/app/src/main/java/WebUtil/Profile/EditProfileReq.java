@@ -13,4 +13,5 @@ public class EditProfileReq extends WebRequest {
     public String gender;
     public String year;
     public String age;
+    public String _id;
 }
