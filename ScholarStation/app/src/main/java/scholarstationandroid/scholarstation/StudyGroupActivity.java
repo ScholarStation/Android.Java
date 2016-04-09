@@ -1,8 +1,11 @@
 package scholarstationandroid.scholarstation;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Movie;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,13 +18,23 @@ import android.view.View;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
+
+import WebUtil.Login.LoginReq;
+import WebUtil.Login.LoginRes;
+import WebUtil.StudySession.StudyGroupRes;
+import WebUtil.Webutil;
+import layout.LoginInfo;
 
 public class StudyGroupActivity extends AppCompatActivity {
 
     private List<StudyGroup> groupList = new ArrayList<>();
     private RecyclerView Rview;
     private Adapter SGAdapter;
+    private List<StudyGroup> mStudyGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +51,40 @@ public class StudyGroupActivity extends AppCompatActivity {
         Rview.setItemAnimator(new DefaultItemAnimator());
         Rview.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         Rview.setAdapter(SGAdapter);
+
+        class NetworkCallTask extends AsyncTask<Object, Object, Object> {
+
+
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+            }
+
+            @Override
+            protected Object doInBackground(Object... params) {
+
+
+                return null;
+            }
+
+            @Override
+            protected void onProgressUpdate(Object... values) {
+                super.onProgressUpdate(values);
+            }
+
+            @Override
+            protected void onPostExecute(Object o) {
+                try {
+                    //System.out.println("UserName :: " + userName);
+                    // System.out.println("Password :: " + passWord);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        new NetworkCallTask().execute(new Object());
 
         /*Rview.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), Rview, new ClickListener() {
             @Override
@@ -68,19 +115,10 @@ public class StudyGroupActivity extends AppCompatActivity {
         groupList.add(group);
 
         group = new StudyGroup("COP1427 Exam 3", "Computer Science", "2/14/2017");
-        groupList.add(group);/*
-
-        group = new StudyGroup("Wocka Wocka", "Accounting", "03/27/2017");
         groupList.add(group);
 
-        group = new StudyGroup("Swallow It", "History", "9/05/2017");
-        groupList.add(group);
 
-        group = new StudyGroup("The Quest for Knowledge", "Pyschology", "8/16/2017");
-        groupList.add(group);
 
-        group = new StudyGroup("The Thirst for Knowledge", "Sociology", "2/14/2017");
-        groupList.add(group);*/
 
         SGAdapter.notifyDataSetChanged();
     }
