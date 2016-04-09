@@ -26,6 +26,8 @@ public class EditProfile extends AppCompatActivity {
     String editEmail = "";
     String editYear = "";
     String editMajor = "";
+    EditProfileReq editProfileReq = new EditProfileReq();
+    ProfileRes profileRes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +57,7 @@ public class EditProfile extends AppCompatActivity {
                 ProfileReq pr = new ProfileReq();
                 pr.username = LoginInfo.username;
                 pr.KEY = LoginInfo.KEY;
-                ProfileRes profileRes = (ProfileRes) new Webutil().webRequest(pr);
+                profileRes = (ProfileRes) new Webutil().webRequest(pr);
                 return profileRes;
             }
 
@@ -75,12 +77,23 @@ public class EditProfile extends AppCompatActivity {
                     email.setText(profileRes.email);
                     year.setText(profileRes.year);
                     major.setText(profileRes.major);
+
+                    firstName = profileRes.fname;
+                    lastName = profileRes.lname;
+                    editAge = String.valueOf(profileRes.age);
+                    editEmail = profileRes.email;
+                    editGender = profileRes.gender;
+                    editMajor = profileRes.major;
+                    editYear = profileRes.year;
                 } catch(Exception e){
                     e.printStackTrace();
                 }
             }
         }
         new NetworkCallTask().execute(new Object());
+
+
+
 
         //age.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
         //<editor-fold desc="On text change">
@@ -121,7 +134,7 @@ public class EditProfile extends AppCompatActivity {
             }
         });
         assert age != null;
-        lname.addTextChangedListener(new TextWatcher() {
+        age.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 // Do some thing now
@@ -140,7 +153,7 @@ public class EditProfile extends AppCompatActivity {
             }
         });
         assert gender != null;
-        lname.addTextChangedListener(new TextWatcher() {
+        gender.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 // Do some thing now
@@ -159,7 +172,7 @@ public class EditProfile extends AppCompatActivity {
             }
         });
         assert email != null;
-        lname.addTextChangedListener(new TextWatcher() {
+        email.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 // Do some thing now
@@ -178,7 +191,7 @@ public class EditProfile extends AppCompatActivity {
             }
         });
         assert year != null;
-        lname.addTextChangedListener(new TextWatcher() {
+        year.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 // Do some thing now
@@ -197,7 +210,7 @@ public class EditProfile extends AppCompatActivity {
             }
         });
         assert major != null;
-        lname.addTextChangedListener(new TextWatcher() {
+        major.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 // Do some thing now
@@ -227,7 +240,7 @@ public class EditProfile extends AppCompatActivity {
 
                     @Override
                     protected Object doInBackground(Object... params){
-                        EditProfileReq editProfileReq = new EditProfileReq();
+
                         editProfileReq.fname = firstName;
                         editProfileReq.lname = lastName;
                         editProfileReq.age = editAge;
@@ -235,6 +248,8 @@ public class EditProfile extends AppCompatActivity {
                         editProfileReq.year = editYear;
                         editProfileReq.major = editMajor;
                         editProfileReq.email = editEmail;
+                        editProfileReq._id = profileRes._id;
+
                         WebResponse editProfileRes = (WebResponse) new Webutil().webRequest(editProfileReq);
                         return editProfileRes;
                     }
@@ -249,6 +264,7 @@ public class EditProfile extends AppCompatActivity {
                         try {
                             Intent myIntent = new Intent(EditProfile.this, ProfileActivity.class);
                             startActivity(myIntent);
+                            finish();
 
                         } catch (Exception e) {
                             e.printStackTrace();
