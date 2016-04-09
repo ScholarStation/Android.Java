@@ -38,8 +38,8 @@ import java.util.logging.LogRecord;
  */
 public class Webutil {
 
-    private  String Login = "http://70.187.52.39:3000/LoginApp";
-    private  String ProfileReq = "http://70.187.52.39:3000/ProfileApp";
+    private  String Login = "http://70.187.52.39:3000/LoginUtility";
+    private  String ProfileReq = "http://70.187.52.39:3000/ProfileUtility";
     private  String CreateLogin = "http://70.187.52.39:3000/LoginApp/Create";
     private  String CreateProfile = "http://70.187.52.39:3000/ProfileApp/Create";
     private  String ProfileEdit = "http://70.187.52.39:3000/ProfileUtility/EditByID";//not implemented
