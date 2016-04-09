@@ -4,22 +4,25 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.Adapter;
 import android.support.v7.widget.Toolbar;
+import WebUtil.Webutil;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import WebUtil.StudySession.StudyGroup;
+import java.util.ArrayList;
+import java.util.List;
 
 public class StudyGroupActivity extends AppCompatActivity {
 
+    private List<StudyGroup> groupList = new ArrayList<>();
     private RecyclerView Rview;
     private Adapter SGAdapter;
-    private RecyclerView.LayoutManager SGLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,58 +32,41 @@ public class StudyGroupActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         Rview = (RecyclerView) findViewById(R.id.StudyGroup_recycler_view);
-        Rview.setHasFixedSize(true);
 
-        SGLayoutManager = new LinearLayoutManager(this);
-        Rview.setLayoutManager(SGLayoutManager);
+        SGAdapter = new SGAdapter(groupList);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        Rview.setLayoutManager(mLayoutManager);
+        Rview.setItemAnimator(new DefaultItemAnimator());
+        Rview.setAdapter(SGAdapter);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        prepareStudyData();
+    }
+    private void prepareStudyData() {
+        StudyGroup group = new StudyGroup("Sally's Study Group", "Biology", "2/14/2017");
+        groupList.add(group);
+
+        group = new StudyGroup("Jimbo Fisher", "Calculus", "03/27/2017");
+        groupList.add(group);
+
+        group = new StudyGroup("For Retards", "Software Engineering I", "9/05/2017");
+        groupList.add(group);
+
+        group = new StudyGroup("Chillaxin", "Exercise Science", "8/16/2017");
+        groupList.add(group);
+
+        group = new StudyGroup("COP1427 Exam 3", "Computer Science", "2/14/2017");
+        groupList.add(group);
+
+        SGAdapter.notifyDataSetChanged();
+    }
+    /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
-    }
-
+        });*/
 }
- class SGAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
-        private StudyGroup[] SGList;
-
-     public static class ViewHolder extends RecyclerView.ViewHolder {
-         // each data item is just a string in this case ????????????????????????????????????
-         public TextView mTextView;
-         public ViewHolder(TextView v) {
-             super(v);
-             mTextView = v;
-         }
-     }
-
-     public SGAdapter(StudyGroup[] SGList) {
-         this.SGList = SGList;
-     }
 
 
-
-     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-         View v = LayoutInflater.from(parent.getContext())
-                 .inflate(R.layout.content_study_group, parent, false);
-         // set the view's size, margins, paddings and layout parameters
-
-         ViewHolder vh = new ViewHolder((TextView) v);
-         return vh;
-    }
-
-
-     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-
-    }
-
-    @Override
-    public int getItemCount() {
-        return 0;
-    }
-}
