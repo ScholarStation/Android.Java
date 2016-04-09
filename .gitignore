@@ -6,4 +6,4 @@ ScholarStation/.idea/libraries
 ScholarStation/.DS_Store
 ScholarStation/build
 ScholarStation/captures
-ScholarStation/.idea/*
+ScholarStation\.idea\*
