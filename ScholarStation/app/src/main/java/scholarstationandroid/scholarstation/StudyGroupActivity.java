@@ -1,19 +1,12 @@
 package scholarstationandroid.scholarstation;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.Adapter;
 import android.support.v7.widget.Toolbar;
-import WebUtil.Webutil;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +24,7 @@ public class StudyGroupActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Rview = (RecyclerView) findViewById(R.id.StudyGroup_recycler_view);
+        Rview = (RecyclerView) findViewById(R.id.recycler_view);
 
         SGAdapter = new SGAdapter(groupList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
@@ -42,6 +35,7 @@ public class StudyGroupActivity extends AppCompatActivity {
         prepareStudyData();
     }
     private void prepareStudyData() {
+        //This only works for more than 5 items. Any less and you get massive spacing issues. Need to fix later
         StudyGroup group = new StudyGroup("Sally's Study Group", "Biology", "2/14/2017");
         groupList.add(group);
 
@@ -55,6 +49,18 @@ public class StudyGroupActivity extends AppCompatActivity {
         groupList.add(group);
 
         group = new StudyGroup("COP1427 Exam 3", "Computer Science", "2/14/2017");
+        groupList.add(group);
+
+        group = new StudyGroup("Wocka Wocka", "Accounting", "03/27/2017");
+        groupList.add(group);
+
+        group = new StudyGroup("Swallow It", "History", "9/05/2017");
+        groupList.add(group);
+
+        group = new StudyGroup("The Quest for Knowledge", "Pyschology", "8/16/2017");
+        groupList.add(group);
+
+        group = new StudyGroup("The Thirst for Knowledge", "Sociology", "2/14/2017");
         groupList.add(group);
 
         SGAdapter.notifyDataSetChanged();

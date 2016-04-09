@@ -32,9 +32,9 @@ public class SGAdapter extends RecyclerView.Adapter<SGAdapter.MyViewHolder>
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.content_study_group, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.studygroup_list_row, parent, false);
 
-        return new MyViewHolder (v);
+        return new MyViewHolder (itemView);
     }
 
 
