@@ -39,19 +39,6 @@ public class StudyGroupActivity extends AppCompatActivity {
         Rview.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         Rview.setAdapter(SGAdapter);
 
-        /*Rview.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), Rview, new ClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                StudyGroup group = groupList.get(position);
-                Toast.makeText(getApplicationContext(), group.getTitle() + " is selected!", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onLongClick(View view, int position) {
-
-            }
-        }));*/
-
         prepareStudyData();
     }
     private void prepareStudyData() {
@@ -68,19 +55,7 @@ public class StudyGroupActivity extends AppCompatActivity {
         groupList.add(group);
 
         group = new StudyGroup("COP1427 Exam 3", "Computer Science", "2/14/2017");
-        groupList.add(group);/*
-
-        group = new StudyGroup("Wocka Wocka", "Accounting", "03/27/2017");
         groupList.add(group);
-
-        group = new StudyGroup("Swallow It", "History", "9/05/2017");
-        groupList.add(group);
-
-        group = new StudyGroup("The Quest for Knowledge", "Pyschology", "8/16/2017");
-        groupList.add(group);
-
-        group = new StudyGroup("The Thirst for Knowledge", "Sociology", "2/14/2017");
-        groupList.add(group);*/
 
         SGAdapter.notifyDataSetChanged();
     }
@@ -92,55 +67,7 @@ public class StudyGroupActivity extends AppCompatActivity {
                     .setAction("Action", null).show();
         }
     });*/
-    public interface ClickListener {
-        void onClick(View view, int position);
 
-        void onLongClick(View view, int position);
-    }
-    /*
-    public static class RecyclerTouchListener implements RecyclerView.OnItemTouchListener
-    {
-
-        private GestureDetector gestureDetector;
-        private MainActivity.ClickListener clickListener;
-
-        public RecyclerTouchListener(Context context, final RecyclerView recyclerView, final MainActivity.ClickListener clickListener) {
-            this.clickListener = clickListener;
-            gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
-                @Override
-                public boolean onSingleTapUp(MotionEvent e) {
-                    return true;
-                }
-
-                @Override
-                public void onLongPress(MotionEvent e) {
-                    View child = recyclerView.findChildViewUnder(e.getX(), e.getY());
-                    if (child != null && clickListener != null) {
-                        clickListener.onLongClick(child, recyclerView.getChildLayoutPosition(child));
-                    }
-                }
-            });
-        }
-
-        @Override
-        public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
-
-            View child = rv.findChildViewUnder(e.getX(), e.getY());
-            if (child != null && clickListener != null && gestureDetector.onTouchEvent(e)) {
-                clickListener.onClick(child, rv.getChildLayoutPosition(child));
-            }
-            return false;
-        }
-
-        @Override
-        public void onTouchEvent(RecyclerView rv, MotionEvent e) {
-        }
-
-        @Override
-        public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-
-        }
-    }*/
 }
 
 
