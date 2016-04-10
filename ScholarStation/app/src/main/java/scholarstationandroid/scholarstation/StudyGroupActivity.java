@@ -25,9 +25,11 @@ import java.util.ListIterator;
 
 import WebUtil.Login.LoginReq;
 import WebUtil.Login.LoginRes;
+import WebUtil.StudySession.StudyGroupReq;
 import WebUtil.StudySession.StudyGroupRes;
 import WebUtil.Webutil;
 import layout.LoginInfo;
+import WebUtil.StudySession.StudyGroup;
 
 public class StudyGroupActivity extends AppCompatActivity {
 
@@ -63,9 +65,16 @@ public class StudyGroupActivity extends AppCompatActivity {
 
             @Override
             protected Object doInBackground(Object... params) {
+                System.out.println("MAKING A WEB REQUEST FOR STUDY GROUPS *******************************");
+                StudyGroupRes studyGroupRes;
+                StudyGroupReq studyGroupReq = new StudyGroupReq();
 
+                studyGroupReq.username=LoginInfo.username;
+                studyGroupReq.KEY= LoginInfo.KEY;
 
-                return null;
+                studyGroupRes = (StudyGroupRes) new Webutil().webRequest(studyGroupReq);
+                System.out.println("GOT STUDY GTOUPS!!!! !!! !!! !!! !!! !!! !!! !!! !! ! ! ! ! ! ! ! ! ! ! !"+studyGroupRes.toString());
+                return studyGroupRes;
             }
 
             @Override
@@ -75,9 +84,16 @@ public class StudyGroupActivity extends AppCompatActivity {
 
             @Override
             protected void onPostExecute(Object o) {
+
+                StudyGroupRes studyGroupRes = (StudyGroupRes)o;
                 try {
-                    //System.out.println("UserName :: " + userName);
-                    // System.out.println("Password :: " + passWord);
+                    System.out.println("Gotten study Groups"+studyGroupRes.toString());
+
+                    for(WebUtil.StudySession.StudyGroup sg: studyGroupRes.studyGroups){
+                        System.out.println("ADDING THEM TO THE LIST ");
+                        groupList.add(sg);
+                        SGAdapter.notifyDataSetChanged();
+                    }
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -99,28 +115,28 @@ public class StudyGroupActivity extends AppCompatActivity {
             }
         }));*/
 
-        prepareStudyData();
+       // prepareStudyData();
     }
     private void prepareStudyData() {
-        StudyGroup group = new StudyGroup("Sally's Study Group", "Biology", "2/14/2017");
-        groupList.add(group);
-
-        group = new StudyGroup("Jimbo Fisher", "Calculus", "03/27/2017");
-        groupList.add(group);
-
-        group = new StudyGroup("For Retards", "Software Engineering I", "9/05/2017");
-        groupList.add(group);
-
-        group = new StudyGroup("Chillaxin", "Exercise Science", "8/16/2017");
-        groupList.add(group);
-
-        group = new StudyGroup("COP1427 Exam 3", "Computer Science", "2/14/2017");
-        groupList.add(group);
-
-
-
-
-        SGAdapter.notifyDataSetChanged();
+//        StudyGroup group = new StudyGroup("Sally's Study Group", "Biology", "2/14/2017");
+//        groupList.add(group);
+//
+//        group = new StudyGroup("Jimbo Fisher", "Calculus", "03/27/2017");
+//        groupList.add(group);
+//
+//        group = new StudyGroup("For Retards", "Software Engineering I", "9/05/2017");
+//        groupList.add(group);
+//
+//        group = new StudyGroup("Chillaxin", "Exercise Science", "8/16/2017");
+//        groupList.add(group);
+//
+//        group = new StudyGroup("COP1427 Exam 3", "Computer Science", "2/14/2017");
+//        groupList.add(group);
+//
+//
+//
+//
+//        SGAdapter.notifyDataSetChanged();
     }
     /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
     fab.setOnClickListener(new View.OnClickListener() {

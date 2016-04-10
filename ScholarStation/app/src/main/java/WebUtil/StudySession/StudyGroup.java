@@ -1,5 +1,7 @@
 package WebUtil.StudySession;
 
+import java.util.Arrays;
+
 import WebUtil.WebRequest;
 
 /**
@@ -12,7 +14,20 @@ public class StudyGroup extends WebRequest{
     public String topic;
     public String date;
     public String time;
-    public Boolean pulicView;
+    public Boolean publicView;
     public String[] members;
 
+    @Override
+    public String toString() {
+        return "StudyGroup{" +
+                "owner='" + owner + '\'' +
+                ", _id='" + _id + '\'' +
+                ", course='" + course + '\'' +
+                ", topic='" + topic + '\'' +
+                ", date='" + date + '\'' +
+                ", time='" + time + '\'' +
+                ", publicView=" + publicView +
+                ", members=" + Arrays.toString(members) +
+                '}';
+    }
 }

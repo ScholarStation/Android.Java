@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+import WebUtil.StudySession.StudyGroup;
 
 import java.util.List;
 
@@ -56,9 +57,9 @@ public class SGAdapter extends RecyclerView.Adapter<SGAdapter.MyViewHolder>
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
         StudyGroup group = groupList.get(position);
-        holder.title.setText(group.getTitle());
-        holder.subject.setText(group.getSubject());
-        holder.date.setText(group.getDate());
+        holder.title.setText(group.topic);
+        holder.subject.setText(group.course);
+        holder.date.setText(group.date);
     }
 
     @Override

@@ -22,6 +22,8 @@ import WebUtil.Profile.EditProfileReq;
 import WebUtil.Profile.EditProfileRes;
 import WebUtil.Profile.ProfileRes;
 import WebUtil.Profile.ProfileReq;
+import WebUtil.StudySession.StudyGroupReq;
+import WebUtil.StudySession.StudyGroupRes;
 import scholarstationandroid.scholarstation.EditProfile;
 
 
@@ -74,6 +76,9 @@ public class Webutil {
         }else if (payload instanceof EditProfileReq){
             post = new HttpPost(ProfileEdit);
             returnType = new EditProfileRes();
+        }else if (payload instanceof StudyGroupReq){
+            post = new HttpPost(StudyReq);
+            returnType = new StudyGroupRes();
         }
 
 
