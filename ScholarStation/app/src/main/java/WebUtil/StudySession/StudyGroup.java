@@ -12,9 +12,7 @@ public class StudyGroup extends WebRequest{
     public String topic;
     public String date;
     public String time;
+    public Boolean pulicView;
     public String[] members;
 
-    public StudyGroup(){
-        members = new String[5];
-    }
 }

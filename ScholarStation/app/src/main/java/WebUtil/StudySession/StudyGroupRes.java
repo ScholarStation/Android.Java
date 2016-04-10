@@ -5,7 +5,7 @@ import WebUtil.WebRequest;
 /**
  * Created by Branden on 3/30/2016.
  */
-public class StudyReq extends WebRequest{
+public class StudyGroupRes extends WebRequest{
     public StudyGroup[] studyGroups;
 
     public String ToString(){
