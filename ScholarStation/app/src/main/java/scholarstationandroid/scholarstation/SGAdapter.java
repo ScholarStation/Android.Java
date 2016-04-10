@@ -36,20 +36,20 @@ public class SGAdapter extends RecyclerView.Adapter<SGAdapter.MyViewHolder>
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.studygroup_list_row, parent, false);
-        if(itemView != null) {
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    System.out.println("Button Works!");
-                    //StudyGroup group = groupList.get();
-                    //Toast.makeText(getApplicationContext(), group.getTitle() + " is selected!", Toast.LENGTH_SHORT).show();
-                }
-                //@Override
-                public void onLongClick(View view, int position) {
-                    System.out.println("Long Button Works!");
-                }
-            });
-        }
+        if(itemView != null) itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View itemView) {
+                System.out.println("Button Works!");
+            }
+        });
+
+        if(itemView != null) itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View itemView) {
+                System.out.println("Long Button Works!");
+                return  true;
+            }
+        });
         return new MyViewHolder (itemView);
     }
 
