@@ -1,11 +1,17 @@
 package scholarstationandroid.scholarstation;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Movie;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,6 +34,7 @@ import WebUtil.StudySession.StudyGroupReq;
 import WebUtil.StudySession.StudyGroupRes;
 import WebUtil.Webutil;
 import layout.LoginInfo;
+import android.app.Fragment;
 import WebUtil.StudySession.StudyGroup;
 
 
@@ -52,6 +59,25 @@ public class StudyGroupActivity extends AppCompatActivity {
         Rview.setItemAnimator(new DefaultItemAnimator());
         Rview.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         Rview.setAdapter(SGAdapter);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        if (fab != null) {
+            fab.setOnClickListener(
+                    new View.OnClickListener(){
+                        @Override
+                        public void onClick(View v){
+                            FragmentManager fm = getFragmentManager();
+                            FragmentTransaction ft = fm.beginTransaction();
+                            CreateStudyFrag details = new CreateStudyFrag();
+                            details.setArguments(getIntent().getExtras());
+
+                           // ft.replace(R.id.createStudyFrag, details);
+                            ft.commit();
+
+                        }
+                    }
+            );
+        }
 
         class NetworkCallTask extends AsyncTask<Object, Object, Object> {
 
@@ -118,17 +144,7 @@ public class StudyGroupActivity extends AppCompatActivity {
     }
 
     public void setAddGroupButton(){
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        if (fab != null) {
-            fab.setOnClickListener(
-                    new View.OnClickListener(){
-                        @Override
-                        public void onClick(View v){
-                            System.out.println("Add a new Group");
-                        }
-                    }
-            );
-        }
+
     }
 
 }
