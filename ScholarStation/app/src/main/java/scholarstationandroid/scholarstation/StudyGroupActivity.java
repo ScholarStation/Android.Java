@@ -3,6 +3,8 @@ package scholarstationandroid.scholarstation;
 import android.content.Context;
 import android.graphics.Movie;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +14,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -40,6 +45,7 @@ public class StudyGroupActivity extends AppCompatActivity {
         Rview.setAdapter(SGAdapter);
 
         prepareStudyData();
+        setAddGroupButton();
     }
     private void prepareStudyData() {
         StudyGroup group = new StudyGroup("Sally's Study Group", "Biology", "2/14/2017");
@@ -59,14 +65,20 @@ public class StudyGroupActivity extends AppCompatActivity {
 
         SGAdapter.notifyDataSetChanged();
     }
-    /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-    fab.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
+
+    public void setAddGroupButton(){
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        if (fab != null) {
+            fab.setOnClickListener(
+                    new View.OnClickListener(){
+                        @Override
+                        public void onClick(View v){
+                            System.out.println("Add a new Group");
+                        }
+                    }
+            );
         }
-    });*/
+    }
 
 }
 
