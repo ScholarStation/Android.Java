@@ -33,11 +33,20 @@ public class SGAdapter extends RecyclerView.Adapter<SGAdapter.MyViewHolder> {
     private List<StudyGroup> groupList;
     StudyGroup group;
 
+
+    int Posistion;
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView title, subject, date;
+        private View v;
+        public View getView(){
+            return v;
+        }
 
         public MyViewHolder(View v) {
             super(v);
+            this.v=v;
+
             title = (TextView) v.findViewById(R.id.title);
             subject = (TextView) v.findViewById(R.id.subject);
             date = (TextView) v.findViewById(R.id.date);
@@ -51,22 +60,33 @@ public class SGAdapter extends RecyclerView.Adapter<SGAdapter.MyViewHolder> {
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, final int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.studygroup_list_row, parent, false);
-        if (itemView != null) itemView.setOnClickListener(new View.OnClickListener() {
+
+
+
+        return new MyViewHolder(itemView);
+    }
+
+    @Override
+    public void onBindViewHolder(MyViewHolder holder, final int position) {
+
+        holder.getView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View itemView) {
                 System.out.println("Button Works!");
             }
         });
 
-        if (itemView != null) itemView.setOnLongClickListener(new View.OnLongClickListener() {
+        holder.getView().setOnLongClickListener(new View.OnLongClickListener() {
             @Override
-            public boolean onLongClick(View itemView) {
+            public boolean onLongClick(final View itemView) {
+
                 final CharSequence[] selectors = {"Edit", "Delete"};
                 AlertDialog.Builder builder = new AlertDialog.Builder(itemView.getContext());
                 builder.setTitle("Choose an action:");
                 AlertDialog.Builder builder1 = builder.setItems(selectors, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+
                         if (which == 0) {
                             System.out.println("Got to edit++++++++++++++++++++++++++++++++++");
 
@@ -81,7 +101,7 @@ public class SGAdapter extends RecyclerView.Adapter<SGAdapter.MyViewHolder> {
                                 @Override
                                 protected Object doInBackground(Object... params) {
                                     DeleteStudyReq req = new DeleteStudyReq();
-                                    req._id = groupList.get(viewType)._id;
+                                    req._id = groupList.get(position)._id;
                                     req.KEY = LoginInfo.KEY;
                                     req.username = LoginInfo.username;
                                     DeleteStudyRes deleteStudyRes = (DeleteStudyRes) new Webutil().webRequest(req);
@@ -115,13 +135,8 @@ public class SGAdapter extends RecyclerView.Adapter<SGAdapter.MyViewHolder> {
                 return true;
             }
         });
-        return new MyViewHolder(itemView);
-    }
-
-    @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
-
         StudyGroup group = groupList.get(position);
+
         holder.title.setText(group.topic);
         holder.subject.setText(group.course);
         holder.date.setText(group.date);
