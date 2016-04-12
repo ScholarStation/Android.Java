@@ -36,6 +36,7 @@ import WebUtil.Webutil;
 import layout.LoginInfo;
 import android.app.Fragment;
 import WebUtil.StudySession.StudyGroup;
+//import android.support.v4.app.Fragment;
 
 
 public class StudyGroupActivity extends AppCompatActivity {
@@ -43,6 +44,7 @@ public class StudyGroupActivity extends AppCompatActivity {
     private List<StudyGroup> groupList = new ArrayList<>();
     private RecyclerView Rview;
     private Adapter SGAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,9 +71,9 @@ public class StudyGroupActivity extends AppCompatActivity {
                             FragmentManager fm = getFragmentManager();
                             FragmentTransaction ft = fm.beginTransaction();
                             CreateStudyFrag details = new CreateStudyFrag();
-                            details.setArguments(getIntent().getExtras());
+                            //details.setArguments(getIntent().getExtras());
 
-                           // ft.replace(R.id.createStudyFrag, details);
+                            ft.replace(R.id.createStudyFrag,details);
                             ft.commit();
 
                         }

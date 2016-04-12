@@ -24,10 +24,8 @@
     <fragment
         android:name="scholarstationandroid.scholarstation.CreateStudyFrag"
         android:id="@+id/createStudyFrag"
-        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        tools:layout="@layout/activity_study" />
+        android:layout_height="match_parent" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
