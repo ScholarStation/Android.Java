@@ -2,10 +2,12 @@ package scholarstationandroid.scholarstation;
 
 import android.content.Context;
 import android.graphics.Movie;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -53,6 +55,19 @@ public class StudyGroupActivity extends AppCompatActivity {
         Rview.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         Rview.setAdapter(SGAdapter);
 
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        if (fab != null) {
+            fab.setOnClickListener(
+                    new View.OnClickListener(){
+                        @Override
+                        public void onClick(View v){
+                            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                            ft.replace(R.id.createStudy_frag, new CreateStudyFrag());
+                            ft.commit();
+                        }
+                    }
+            );
+        }
         class NetworkCallTask extends AsyncTask<Object, Object, Object> {
 
 
@@ -119,17 +134,7 @@ public class StudyGroupActivity extends AppCompatActivity {
     }
 
     public void setAddGroupButton(){
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        if (fab != null) {
-            fab.setOnClickListener(
-                    new View.OnClickListener(){
-                        @Override
-                        public void onClick(View v){
-                            System.out.println("Add a new Group");
-                        }
-                    }
-            );
-        }
+
     }
 
 }
