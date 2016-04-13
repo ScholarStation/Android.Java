@@ -118,6 +118,7 @@ public class StudyGroupActivity extends AppCompatActivity {
 
                     for(WebUtil.StudySession.StudyGroup sg: studyGroupRes.studyGroups){
                         System.out.println("ADDING THEM TO THE LIST ");
+                        System.out.println("GROUP ID IS " + sg._id);
                         groupList.add(sg);
                         SGAdapter.notifyDataSetChanged();
                     }
