@@ -34,6 +34,7 @@ public class CreateStudyGroup extends AppCompatActivity {
     String createTopic = "";
     String createTime = "";
     String createDate = "";
+    String[] createMember;
     boolean isChecked;
     EditText time;
     EditText date;
