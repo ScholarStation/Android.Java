@@ -2,6 +2,7 @@ package scholarstationandroid.scholarstation;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -33,6 +35,7 @@ public class CreateStudyGroup extends AppCompatActivity {
     String createTime = "";
     String createDate = "";
     boolean isChecked;
+    EditText time;
     EditText date;
     Calendar mCalendar;
 
@@ -44,12 +47,14 @@ public class CreateStudyGroup extends AppCompatActivity {
 
         final EditText course = (EditText) findViewById(R.id.createStudyCourse);
         final EditText topic = (EditText) findViewById(R.id.createStudyTopic);
-        final EditText time = (EditText) findViewById(R.id.createStudyTime);
+        time = (EditText) findViewById(R.id.createStudyTime);
         date = (EditText) findViewById(R.id.createStudyDate);
         final TextView members = (TextView) findViewById(R.id.createStudyMembers);
         final Button membersButton = (Button) findViewById(R.id.createInviteMembers);
         final Button createStudy = (Button) findViewById(R.id.createStudyButton);
         final CheckBox papCheckbox = (CheckBox) findViewById(R.id.createCheckBox);
+
+        setTitle("Create Study Group");
 
         if(papCheckbox.isChecked()){
             isChecked = false;
@@ -58,14 +63,66 @@ public class CreateStudyGroup extends AppCompatActivity {
         }
 
         mCalendar  = Calendar.getInstance();
-
         final DatePickerDialog.OnDateSetListener datePicker = new DatePickerDialog.OnDateSetListener(){
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth){
                 mCalendar.set(Calendar.YEAR, year);
                 mCalendar.set(Calendar.MONTH, monthOfYear);
                 mCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                updateTimeText();
+                updateDateText();
+            }
+        };
+
+
+        final TimePickerDialog.OnTimeSetListener timePicker = new TimePickerDialog.OnTimeSetListener(){
+            @Override
+            public void onTimeSet(TimePicker view, int hour, int minute){
+                mCalendar.set(Calendar.HOUR_OF_DAY, hour);
+                mCalendar.set(Calendar.MINUTE, minute);
+                // formats hours to 12hr time
+                if (hour == 0)
+                    hour = hour + 12;
+                else if (hour > 12)
+                    hour = hour - 12;
+                //corrects minutes to the correct format 0-> 00
+                String formattedMinutes;
+                switch (minute) {
+                    case 0:
+                        formattedMinutes = "00";
+                        break;
+                    case 1:
+                        formattedMinutes = "01";
+                        break;
+                    case 2:
+                        formattedMinutes = "02";
+                        break;
+                    case 3:
+                        formattedMinutes = "03";
+                        break;
+                    case 4:
+                        formattedMinutes = "04";
+                        break;
+                    case 5:
+                        formattedMinutes = "05";
+                        break;
+                    case 6:
+                        formattedMinutes = "06";
+                        break;
+                    case 7:
+                        formattedMinutes = "07";
+                        break;
+                    case 8:
+                        formattedMinutes = "08";
+                        break;
+                    case 9:
+                        formattedMinutes = "09";
+                        break;
+                    default:
+                        formattedMinutes = Integer.toString(minute);
+                        break;
+                }
+
+                time.setText(hour + ":" + formattedMinutes);
             }
         };
 
@@ -73,7 +130,19 @@ public class CreateStudyGroup extends AppCompatActivity {
         date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(CreateStudyGroup.this,datePicker,mCalendar.get(Calendar.YEAR),mCalendar.get(Calendar.MONTH),mCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                DatePickerDialog datePickerDialog =  new DatePickerDialog(CreateStudyGroup.this,datePicker,mCalendar.get(Calendar.YEAR),mCalendar.get(Calendar.MONTH),mCalendar.get(Calendar.DAY_OF_MONTH));
+                datePickerDialog.setTitle("Set Date:");
+                datePickerDialog.show();
+            }
+        });
+
+        assert time!= null;
+        time.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TimePickerDialog timePickerDialog = new TimePickerDialog(CreateStudyGroup.this,timePicker,mCalendar.get(Calendar.HOUR_OF_DAY),mCalendar.get(Calendar.MINUTE),false);
+                timePickerDialog.setTitle("Set Time:");
+                timePickerDialog.show();
             }
         });
 
@@ -227,7 +296,7 @@ public class CreateStudyGroup extends AppCompatActivity {
         });
     }
 
-    private void updateTimeText(){
+    private void updateDateText(){
         String mFormat = "MM/dd/yy";
         SimpleDateFormat sdf = new SimpleDateFormat(mFormat, Locale.US);
         date.setText(sdf.format(mCalendar.getTime()));

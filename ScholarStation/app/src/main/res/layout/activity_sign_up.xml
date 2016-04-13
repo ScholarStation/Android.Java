@@ -19,6 +19,9 @@
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true">
 
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -26,7 +29,11 @@
                 android:hint="User Name"
                 android:layout_gravity="center_horizontal"
                 android:editable="true" />
+            </android.support.design.widget.TextInputLayout>
 
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -34,7 +41,11 @@
                 android:hint="Password"
                 android:layout_gravity="center_horizontal"
                 android:editable="true" />
+            </android.support.design.widget.TextInputLayout>
 
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -42,7 +53,11 @@
                 android:hint="First Name"
                 android:layout_gravity="center_horizontal"
                 android:editable="true" />
+            </android.support.design.widget.TextInputLayout>
 
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -50,7 +65,11 @@
                 android:hint="Last Name"
                 android:layout_gravity="center_horizontal"
                 android:editable="true" />
+            </android.support.design.widget.TextInputLayout>
 
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -58,7 +77,11 @@
                 android:hint="Age"
                 android:layout_gravity="center_horizontal"
                 android:editable="true" />
+            </android.support.design.widget.TextInputLayout>
 
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -66,15 +89,23 @@
                 android:hint="Gender"
                 android:layout_gravity="center_horizontal"
                 android:editable="true" />
+            </android.support.design.widget.TextInputLayout>
 
-            <EditText
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"><EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/signup_email"
                 android:hint="Email"
                 android:layout_gravity="center_horizontal"
                 android:editable="true" />
+            </android.support.design.widget.TextInputLayout>
 
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -82,13 +113,18 @@
                 android:hint="Major"
                 android:layout_gravity="center_horizontal"
                 android:editable="true" />
+            </android.support.design.widget.TextInputLayout>
 
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
             <EditText
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/signup_year"
                 android:hint="Student Class Level"
                 android:editable="true" />
+            </android.support.design.widget.TextInputLayout>
 
             <Button
                 style="?android:textAppearanceSmall"

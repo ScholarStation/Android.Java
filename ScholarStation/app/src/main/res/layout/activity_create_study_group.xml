@@ -20,28 +20,39 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:weightSum="1">
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Enter Course"
                 android:id="@+id/createStudyCourse" />
+            </android.support.design.widget.TextInputLayout>
 
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Enter Topic"
                 android:id="@+id/createStudyTopic" />
+            </android.support.design.widget.TextInputLayout>
+
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Enter Date"
+                android:focusable="false"
                 android:id="@+id/createStudyDate" />
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Enter Time"
+                android:focusable="false"
                 android:id="@+id/createStudyTime" />
 
             <LinearLayout
