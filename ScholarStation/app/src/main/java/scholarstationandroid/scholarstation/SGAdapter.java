@@ -72,7 +72,8 @@ public class SGAdapter extends RecyclerView.Adapter<SGAdapter.MyViewHolder> {
         holder.getView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View itemView) {
-                System.out.println("Button Works!");
+                //Intent myIntent = new Intent(StudyGroupActivity.this , ViewStudyGroup.class);
+                //startActivity(myIntent);
             }
         });
 
