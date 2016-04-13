@@ -198,6 +198,12 @@ public class CreateStudyGroup extends AppCompatActivity {
                         study.publicView = isChecked;
 
                         CreateStudyRes createRes = (CreateStudyRes) new Webutil().webRequest(study);
+                        if(createRes.success == true){
+                            Intent myIntent = new Intent(CreateStudyGroup.this, StudyGroupActivity.class);
+                            startActivity(myIntent);
+                        }else{
+                            System.out.println("Failed To Create Study Group");
+                        }
                         return createRes;
 
                     }

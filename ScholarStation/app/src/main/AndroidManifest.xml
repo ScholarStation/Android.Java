@@ -35,7 +35,9 @@
             android:label="@string/title_activity_study_group"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".EditProfile" />
-        <activity android:name=".CreateStudyGroup"></activity>
+        <activity android:name=".CreateStudyGroup" />
+        <activity android:name=".ViewStudyGroup" />
+        <activity android:name=".EditStudyGroup"></activity>
     </application>
 
 </manifest>
