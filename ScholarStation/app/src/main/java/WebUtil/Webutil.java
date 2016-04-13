@@ -22,6 +22,8 @@ import WebUtil.Profile.EditProfileReq;
 import WebUtil.Profile.EditProfileRes;
 import WebUtil.Profile.ProfileRes;
 import WebUtil.Profile.ProfileReq;
+import WebUtil.StudySession.CreateStudyReq;
+import WebUtil.StudySession.CreateStudyRes;
 import WebUtil.StudySession.DeleteStudyReq;
 import WebUtil.StudySession.DeleteStudyRes;
 import WebUtil.StudySession.StudyGroupReq;
@@ -84,6 +86,9 @@ public class Webutil {
         }else if(payload instanceof DeleteStudyReq){
             post = new HttpPost(StudyDel);
             returnType = new DeleteStudyRes();
+        }else if(payload instanceof CreateStudyReq){
+            post = new HttpPost(StudyCrt);
+            returnType= new CreateStudyRes();
         }
 
 

@@ -1,6 +1,7 @@
 package scholarstationandroid.scholarstation;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Movie;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -52,6 +53,19 @@ public class StudyGroupActivity extends AppCompatActivity {
         Rview.setItemAnimator(new DefaultItemAnimator());
         Rview.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         Rview.setAdapter(SGAdapter);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        if (fab != null) {
+            fab.setOnClickListener(
+                    new View.OnClickListener(){
+                        @Override
+                        public void onClick(View v){
+                            Intent i = new Intent(StudyGroupActivity.this, CreateStudyGroup.class);
+                            startActivity(i);
+                        }
+                    }
+            );
+        }
 
         class NetworkCallTask extends AsyncTask<Object, Object, Object> {
 
@@ -119,17 +133,7 @@ public class StudyGroupActivity extends AppCompatActivity {
     }
 
     public void setAddGroupButton(){
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        if (fab != null) {
-            fab.setOnClickListener(
-                    new View.OnClickListener(){
-                        @Override
-                        public void onClick(View v){
-                            System.out.println("Add a new Group");
-                        }
-                    }
-            );
-        }
+
     }
 
 }

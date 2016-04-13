@@ -65,6 +65,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
+        //<editor-fold desc="Get Text">
         assert user != null;
         user.addTextChangedListener(new TextWatcher() {
             @Override
@@ -103,6 +104,7 @@ public class LoginActivity extends AppCompatActivity {
                 // Do something at this time
             }
         });
+        //</editor-fold>
         assert signIn != null;
         signIn.setOnClickListener(new View.OnClickListener() {
 
