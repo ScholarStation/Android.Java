@@ -1,6 +1,7 @@
 package scholarstationandroid.scholarstation;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -10,9 +11,14 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 import WebUtil.Login.LoginReq;
 import WebUtil.Login.LoginRes;
@@ -27,6 +33,8 @@ public class CreateStudyGroup extends AppCompatActivity {
     String createTime = "";
     String createDate = "";
     boolean isChecked;
+    EditText date;
+    Calendar mCalendar;
 
 
     @Override
@@ -37,7 +45,7 @@ public class CreateStudyGroup extends AppCompatActivity {
         final EditText course = (EditText) findViewById(R.id.createStudyCourse);
         final EditText topic = (EditText) findViewById(R.id.createStudyTopic);
         final EditText time = (EditText) findViewById(R.id.createStudyTime);
-        final EditText date = (EditText) findViewById(R.id.createStudyDate);
+        date = (EditText) findViewById(R.id.createStudyDate);
         final TextView members = (TextView) findViewById(R.id.createStudyMembers);
         final Button membersButton = (Button) findViewById(R.id.createInviteMembers);
         final Button createStudy = (Button) findViewById(R.id.createStudyButton);
@@ -48,6 +56,30 @@ public class CreateStudyGroup extends AppCompatActivity {
         }else{
             isChecked = true;
         }
+
+        mCalendar  = Calendar.getInstance();
+
+        final DatePickerDialog.OnDateSetListener datePicker = new DatePickerDialog.OnDateSetListener(){
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth){
+                mCalendar.set(Calendar.YEAR, year);
+                mCalendar.set(Calendar.MONTH, monthOfYear);
+                mCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateTimeText();
+            }
+        };
+
+        assert date!= null;
+        date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DatePickerDialog(CreateStudyGroup.this,datePicker,mCalendar.get(Calendar.YEAR),mCalendar.get(Calendar.MONTH),mCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+
+
+
+
 
         //<editor-fold desc="Get Text">
         assert course != null;
@@ -187,7 +219,11 @@ public class CreateStudyGroup extends AppCompatActivity {
                 new NetworkCallTask().execute(new Object());
             }
         });
+    }
 
-
+    private void updateTimeText(){
+        String mFormat = "MM/dd/yy";
+        SimpleDateFormat sdf = new SimpleDateFormat(mFormat, Locale.US);
+        date.setText(sdf.format(mCalendar.getTime()));
     }
 }
