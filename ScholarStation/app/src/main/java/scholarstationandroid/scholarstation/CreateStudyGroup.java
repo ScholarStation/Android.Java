@@ -325,6 +325,7 @@ public class CreateStudyGroup extends AppCompatActivity {
                         if(createRes.success == true){
                             Intent myIntent = new Intent(CreateStudyGroup.this, StudyGroupActivity.class);
                             startActivity(myIntent);
+                            finish();
                         }else{
                             System.out.println("Failed To Create Study Group");
                         }

@@ -324,6 +324,7 @@ public class EditStudyGroup extends AppCompatActivity {
                         if (editRes.success == true) {
                             Intent myIntent = new Intent(EditStudyGroup.this, StudyGroupActivity.class);
                             startActivity(myIntent);
+                            finish();
                         } else {
                             System.out.println("Failed To Edit Study Group");
                         }

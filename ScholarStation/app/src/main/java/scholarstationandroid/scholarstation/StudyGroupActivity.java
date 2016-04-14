@@ -71,6 +71,7 @@ public class StudyGroupActivity extends AppCompatActivity {
                         public void onClick(View v){
                             Intent i = new Intent(StudyGroupActivity.this, CreateStudyGroup.class);
                             startActivity(i);
+                            finish();
                         }
                     }
             );
@@ -87,16 +88,19 @@ public class StudyGroupActivity extends AppCompatActivity {
 
             @Override
             protected Object doInBackground(Object... params) {
-                System.out.println("MAKING A WEB REQUEST FOR STUDY GROUPS *******************************");
-                StudyGroupRes studyGroupRes;
-                StudyGroupReq studyGroupReq = new StudyGroupReq();
+//                System.out.println("MAKING A WEB REQUEST FOR STUDY GROUPS *******************************");
+//                StudyGroupRes studyGroupRes;
+//                StudyGroupReq studyGroupReq = new StudyGroupReq();
+//
+//                studyGroupReq.username=LoginInfo.username;
+//                studyGroupReq.KEY= LoginInfo.KEY;
+//
+//                studyGroupRes = (StudyGroupRes) new Webutil().webRequest(studyGroupReq);
+//                System.out.println("GOT STUDY GTOUPS!!!! !!! !!! !!! !!! !!! !!! !!! !! ! ! ! ! ! ! ! ! ! ! !"+studyGroupRes.toString());
+//                return studyGroupRes;
 
-                studyGroupReq.username=LoginInfo.username;
-                studyGroupReq.KEY= LoginInfo.KEY;
+                return updateUI();
 
-                studyGroupRes = (StudyGroupRes) new Webutil().webRequest(studyGroupReq);
-                System.out.println("GOT STUDY GTOUPS!!!! !!! !!! !!! !!! !!! !!! !!! !! ! ! ! ! ! ! ! ! ! ! !"+studyGroupRes.toString());
-                return studyGroupRes;
             }
 
             @Override
@@ -106,6 +110,8 @@ public class StudyGroupActivity extends AppCompatActivity {
 
             @Override
             protected void onPostExecute(Object o) {
+               // SGAdapter.notifyDataSetChanged();
+
 
                 StudyGroupRes studyGroupRes = (StudyGroupRes)o;
                 try {
@@ -117,13 +123,14 @@ public class StudyGroupActivity extends AppCompatActivity {
                         groupList.add(sg);
                         SGAdapter.notifyDataSetChanged();
                     }
+                    System.out.println("NEW GROUP LIST IS !!!!!! "+groupList.toString());
 
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         }
-        new NetworkCallTask().execute(new Object());
+        new NetworkCallTask().execute(this);
 
         /*Rview.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), Rview, new ClickListener() {
             @Override
@@ -214,6 +221,7 @@ public class StudyGroupActivity extends AppCompatActivity {
                                 myIntent.putExtra("EditGroupInfo", new Gson().toJson(groupList.get(position)));
                                 myIntent.putExtras(bundle);
                                 startActivity(myIntent);
+                                finish();
 
                             } else {
                                 //System.out.println("This is group ID " + groupList.get(viewType)._id + "=========================");
@@ -230,7 +238,8 @@ public class StudyGroupActivity extends AppCompatActivity {
                                         req.KEY = LoginInfo.KEY;
                                         req.username = LoginInfo.username;
                                         DeleteStudyRes deleteStudyRes = (DeleteStudyRes) new Webutil().webRequest(req);
-                                        return deleteStudyRes;
+
+                                        return updateUI() ;
 
                                     }
 
@@ -243,7 +252,22 @@ public class StudyGroupActivity extends AppCompatActivity {
                                     protected void onPostExecute(Object o) {
                                         try {
                                             System.out.println("We Deleted IT==========================================");
+                                            StudyGroupRes studyGroupRes = (StudyGroupRes)o;
+                                            groupList=new ArrayList<>();
+                                            try {
+                                                System.out.println("Gotten study Groups"+studyGroupRes.toString());
 
+                                                for(WebUtil.StudySession.StudyGroup sg: studyGroupRes.studyGroups){
+                                                    System.out.println("ADDING THEM TO THE LIST ");
+                                                    System.out.println("GROUP ID IS " + sg._id);
+                                                    groupList.add(sg);
+                                                    SGAdapter.notifyDataSetChanged();
+                                                }
+                                                System.out.println("NEW GROUP LIST IS !!!!!! "+groupList.toString());
+
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
                                         } catch (Exception e) {
                                             e.printStackTrace();
                                         }
@@ -272,6 +296,28 @@ public class StudyGroupActivity extends AppCompatActivity {
             return groupList.size();
         }
 
+
+
+
+    }
+    //Makes web req and updates the UI with new SG
+    //MUST CALL SGAdapter.notifyDataSetChanged() ON GUI THREAD TO SEE UPDATES!!!!!!!!!!!!!
+    public StudyGroupRes updateUI(){
+
+        StudyGroupRes studyGroupRes;
+        StudyGroupReq studyGroupReq = new StudyGroupReq();
+        studyGroupReq.username=LoginInfo.username;
+        studyGroupReq.KEY= LoginInfo.KEY;
+        studyGroupRes = (StudyGroupRes) new Webutil().webRequest(studyGroupReq);
+       // groupList=new ArrayList<>();
+        return studyGroupRes;
+
+//        for(WebUtil.StudySession.StudyGroup sg: studyGroupRes.studyGroups){
+//            System.out.println("ADDING THEM TO THE LIST ");
+//            System.out.println("GROUP IS " + sg.toString());
+//            groupList.add(sg);
+//            //SGAdapter.notifyDataSetChanged();
+//        }
 
     }
 }
