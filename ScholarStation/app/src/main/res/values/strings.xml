@@ -27,4 +27,6 @@
     </string>
     <string name="title_activity_sign_up">SignUpActivity</string>
     <string name="title_activity_study_group">StudyGroupActivity</string>
+    <string name="title_activity_feedback_form">Feedback_form</string>
+    <string name="title_activity_feedback__form__list">Feedback_Form_List</string>
 </resources>
