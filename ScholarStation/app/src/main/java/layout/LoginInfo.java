@@ -6,4 +6,5 @@ package layout;
 public class LoginInfo {
     public static String username;
     public static String KEY;
+    public static String[] courseNames;
 }

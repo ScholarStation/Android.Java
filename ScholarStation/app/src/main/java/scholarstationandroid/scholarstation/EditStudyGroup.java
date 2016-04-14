@@ -48,6 +48,7 @@ public class EditStudyGroup extends AppCompatActivity {
     EditText time;
     EditText date;
     Calendar mCalendar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
