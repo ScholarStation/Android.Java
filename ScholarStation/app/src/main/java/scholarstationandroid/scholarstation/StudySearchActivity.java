@@ -27,7 +27,8 @@ public class StudySearchActivity extends AppCompatActivity {
     Button searchButton;
     //RaidoButton topicRB,courseRB,membersRB;
     int searchType=-1;
-    StudyGroup[] studyGroupsList;
+    ArrayList<StudyGroup> studyGroupsList = new ArrayList<>();
+
     EditText queryTextField;
     SGAdapter adapter;
     ListView listView;
@@ -65,7 +66,9 @@ public class StudySearchActivity extends AppCompatActivity {
                             searchStudyReq.filter=searchType;
                             //make web req
                             StudyGroupRes studyGroupRes = (StudyGroupRes)new Webutil().webRequest(searchStudyReq);
-                            studyGroupsList= studyGroupRes.studyGroups;
+                            studyGroupsList=new ArrayList<StudyGroup>();
+                            for(StudyGroup sg:studyGroupRes.studyGroups)
+                                studyGroupsList.add(sg);
                             return params;
                         }
 
@@ -91,33 +94,41 @@ public class StudySearchActivity extends AppCompatActivity {
     }
 
     private void updateUI() {
-        adapter.clear();adapter.addAll(studyGroupsList);
+        adapter.clear();
+        adapter.addAll(studyGroupsList);
+
 
     }
     class SGAdapter extends ArrayAdapter<StudyGroup>{
 
 
-        public SGAdapter(Context context, StudyGroup[] objects) {
-            super(context, 0,objects);
+        public SGAdapter(Context context, ArrayList<StudyGroup> objects) {
+
+            super(context,R.layout.study_group_array_adapter_layout,objects);
+            System.out.println();
         }
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            super.getView(position, convertView, parent);
+//            super.getView(position, convertView, parent);
             StudyGroup sg = getItem(position);
             if(convertView==null){
-                convertView.inflate(getContext(),R.layout.study_group_array_adapter_layout,parent);
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.study_group_array_adapter_layout, parent, false);
+                // convertView.inflate(getContext(),R.layout.study_group_array_adapter_layout,parent);
             }
             TextView topicView,courseView;
             topicView = (TextView)convertView.findViewById(R.id.studyCourse);
             courseView = (TextView)convertView.findViewById(R.id.studyCourse);
-            topicView.setText(sg.topic);
-            courseView.setText(sg.course);
+            if(studyGroupsList.get(0)!=null){
+                topicView.setText(sg.topic);
+                courseView.setText(sg.course);
+            }
+
             return convertView;
         }
     }
 
-    public void onRaidoButtonClicked(View view){
+    public void onRadioButtonClicked(View view){
         boolean checked = ((RadioButton) view).isChecked();
 
         switch(view.getId()){
