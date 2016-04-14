@@ -28,6 +28,7 @@ import WebUtil.StudySession.DeleteStudyReq;
 import WebUtil.StudySession.DeleteStudyRes;
 import WebUtil.StudySession.EditStudyReq;
 import WebUtil.StudySession.EditStudyRes;
+import WebUtil.StudySession.SearchStudyReq;
 import WebUtil.StudySession.StudyGroupReq;
 import WebUtil.StudySession.StudyGroupRes;
 import scholarstationandroid.scholarstation.EditProfile;
@@ -55,7 +56,7 @@ public class Webutil {
     private  String StudyCrt = "http://70.187.52.39:3000/StudyUtility/Create";
     private  String StudyEdt = "http://70.187.52.39:3000/StudyUtility/EditByID";
     private  String StudyDel = "http://70.187.52.39:3000/StudyUtility/DeleteByID";
-    private  String StudySrc = "...";//not implemented
+    private  String StudySrc = "http://70.187.52.39:3000/StudyUtility/Search";
 
     public Object webRequest(WebRequest payload){
 
@@ -94,6 +95,9 @@ public class Webutil {
         }else if(payload instanceof EditStudyReq){
             post = new HttpPost(StudyEdt);
             returnType= new EditStudyRes();
+        }else if (payload instanceof SearchStudyReq){
+            post = new HttpPost(StudySrc);
+            returnType = new StudyGroupRes();
         }
 
 
