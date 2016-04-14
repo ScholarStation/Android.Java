@@ -24,6 +24,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
@@ -184,8 +187,13 @@ public class StudyGroupActivity extends AppCompatActivity {
             holder.getView().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View itemView) {
-                    //Intent myIntent = new Intent(StudyGroupActivity.this , ViewStudyGroup.class);
-                    //startActivity(myIntent);
+
+                    Intent myIntent = new Intent(StudyGroupActivity.this , ViewStudyGroup.class);
+                    Bundle bundle = new Bundle();
+                    myIntent.putExtra("ViewGroupInfo", new Gson().toJson(groupList.get(position)));
+                    myIntent.putExtras(bundle);
+                    startActivity(myIntent);
+
                 }
             });
 

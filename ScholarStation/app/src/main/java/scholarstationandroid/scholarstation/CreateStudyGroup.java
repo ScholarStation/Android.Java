@@ -12,6 +12,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -36,6 +37,7 @@ public class CreateStudyGroup extends AppCompatActivity {
     String createDate = "";
     String[] createMember;
     boolean isChecked;
+    CheckBox papCheckbox;
     EditText time;
     EditText date;
     Calendar mCalendar;
@@ -53,16 +55,21 @@ public class CreateStudyGroup extends AppCompatActivity {
         final TextView members = (TextView) findViewById(R.id.createStudyMembers);
         final Button membersButton = (Button) findViewById(R.id.createInviteMembers);
         final Button createStudy = (Button) findViewById(R.id.createStudyButton);
-        final CheckBox papCheckbox = (CheckBox) findViewById(R.id.createCheckBox);
+        papCheckbox = (CheckBox) findViewById(R.id.createCheckBox);
 
         setTitle("Create Study Group");
 
-        if(papCheckbox.isChecked()){
-            isChecked = false;
-        }else{
-            isChecked = true;
-        }
 
+        papCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(papCheckbox.isChecked()){
+                    isChecked = false;
+                }else{
+                    isChecked = true;
+                }
+            }
+        });
         mCalendar  = Calendar.getInstance();
         final DatePickerDialog.OnDateSetListener datePicker = new DatePickerDialog.OnDateSetListener(){
             @Override
