@@ -26,6 +26,8 @@ import WebUtil.StudySession.CreateStudyReq;
 import WebUtil.StudySession.CreateStudyRes;
 import WebUtil.StudySession.DeleteStudyReq;
 import WebUtil.StudySession.DeleteStudyRes;
+import WebUtil.StudySession.EditStudyReq;
+import WebUtil.StudySession.EditStudyRes;
 import WebUtil.StudySession.StudyGroupReq;
 import WebUtil.StudySession.StudyGroupRes;
 import scholarstationandroid.scholarstation.EditProfile;
@@ -89,6 +91,9 @@ public class Webutil {
         }else if(payload instanceof CreateStudyReq){
             post = new HttpPost(StudyCrt);
             returnType= new CreateStudyRes();
+        }else if(payload instanceof EditStudyReq){
+            post = new HttpPost(StudyEdt);
+            returnType= new EditStudyRes();
         }
 
 

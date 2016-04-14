@@ -281,7 +281,7 @@ public class CreateStudyGroup extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         createMember.add(createMemberName);
-                        System.out.println(createMember);
+                        //System.out.println(createMember);
                         members.setText(Arrays.toString(createMember.toArray()).replace("[", "").replace(',', '\n').replace("]", "").replace(" ", ""));
                         dialog.dismiss();
                     }

@@ -209,7 +209,11 @@ public class StudyGroupActivity extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int which) {
 
                             if (which == 0) {
-                                System.out.println("Got to edit++++++++++++++++++++++++++++++++++");
+                                Intent myIntent = new Intent(StudyGroupActivity.this , EditStudyGroup.class);
+                                Bundle bundle = new Bundle();
+                                myIntent.putExtra("EditGroupInfo", new Gson().toJson(groupList.get(position)));
+                                myIntent.putExtras(bundle);
+                                startActivity(myIntent);
 
                             } else {
                                 //System.out.println("This is group ID " + groupList.get(viewType)._id + "=========================");
