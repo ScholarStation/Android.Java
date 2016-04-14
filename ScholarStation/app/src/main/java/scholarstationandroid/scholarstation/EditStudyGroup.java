@@ -41,7 +41,7 @@ public class EditStudyGroup extends AppCompatActivity {
     TextView members;
     EditStudyReq editstudy;
     String editMemberName = "";
-    ArrayList<String> editMember = new ArrayList<>();
+    ArrayList<String> editMember = new ArrayList<String>();
     String[] memberString;
     boolean publicView = true;
     CheckBox papCheckbox;
@@ -82,9 +82,9 @@ public class EditStudyGroup extends AppCompatActivity {
             for (String s : group.members) {
                 editMember.add(s);
             }
-            memberString = editMember.toArray(memberString);
+           // memberString = editMember.toArray(memberString);
             System.out.println("NEW STRING HERE " + memberString.toString());
-            editstudy.members = memberString;
+            //editstudy.members = memberString;
             editstudy.date = group.date;
             editstudy.time = group.time;
             editstudy.publicView = publicView;
@@ -314,8 +314,12 @@ public class EditStudyGroup extends AppCompatActivity {
 
                     @Override
                     protected Object doInBackground(Object... params) {
-
-
+                        String[] finalStringArray = new String [editMember.size()];
+                        int i = 0;
+                        for(String s :editMember){
+                            finalStringArray[i]=s;i++;
+                        }
+                        editstudy.members=finalStringArray;
                         EditStudyRes editRes = (EditStudyRes) new Webutil().webRequest(editstudy);
                         if (editRes.success == true) {
                             Intent myIntent = new Intent(EditStudyGroup.this, StudyGroupActivity.class);
