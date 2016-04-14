@@ -2,7 +2,10 @@ package scholarstationandroid.scholarstation;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +23,8 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -31,12 +36,17 @@ import WebUtil.Webutil;
 import layout.LoginInfo;
 
 public class CreateStudyGroup extends AppCompatActivity {
+    final Context context = this;
     String createCourse = "";
     String createTopic = "";
     String createTime = "";
     String createDate = "";
-    String[] createMember;
-    boolean isChecked;
+    TextView members;
+    CreateStudyReq study;
+    String createMemberName = "";
+    ArrayList<String> createMember = new ArrayList<>();
+    String[] memberString;
+    boolean publicView = true;
     CheckBox papCheckbox;
     EditText time;
     EditText date;
@@ -47,12 +57,12 @@ public class CreateStudyGroup extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_study_group);
-
+         memberString = new String[createMember.size()];
         final EditText course = (EditText) findViewById(R.id.createStudyCourse);
         final EditText topic = (EditText) findViewById(R.id.createStudyTopic);
         time = (EditText) findViewById(R.id.createStudyTime);
         date = (EditText) findViewById(R.id.createStudyDate);
-        final TextView members = (TextView) findViewById(R.id.createStudyMembers);
+        members = (TextView) findViewById(R.id.createStudyMembers);
         final Button membersButton = (Button) findViewById(R.id.createInviteMembers);
         final Button createStudy = (Button) findViewById(R.id.createStudyButton);
         papCheckbox = (CheckBox) findViewById(R.id.createCheckBox);
@@ -63,13 +73,15 @@ public class CreateStudyGroup extends AppCompatActivity {
         papCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(papCheckbox.isChecked()){
-                    isChecked = false;
+                if(isChecked){
+                    publicView = false;
                 }else{
-                    isChecked = true;
+                    publicView = true;
                 }
+
             }
         });
+
         mCalendar  = Calendar.getInstance();
         final DatePickerDialog.OnDateSetListener datePicker = new DatePickerDialog.OnDateSetListener(){
             @Override
@@ -242,8 +254,41 @@ public class CreateStudyGroup extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
+                final Dialog dialog = new Dialog(context);
+                dialog.setContentView(R.layout.members_dialog);
+                dialog.setTitle("Invite Members");
+                final EditText memberName = (EditText) dialog.findViewById(R.id.inviteMemberText);
+                Button inviteMember = (Button) dialog.findViewById(R.id.inviteMember);
+                memberName.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                        // Do some thing now
+                    }
 
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                        createMemberName = memberName.getText().toString();
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        // Do something at this time
+                    }
+                });
+                inviteMember.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        createMember.add(createMemberName);
+                        System.out.println(createMember);
+                        members.setText(Arrays.toString(createMember.toArray()).replace("[", "").replace(',', '\n').replace("]", "").replace(" ", ""));
+                        dialog.dismiss();
+                    }
+                });
+                dialog.show();
             }
+
         });
 
         assert createStudy != null;
@@ -263,16 +308,18 @@ public class CreateStudyGroup extends AppCompatActivity {
 
                     @Override
                     protected Object doInBackground(Object... params) {
-                        CreateStudyReq study = new CreateStudyReq();
+                        memberString = createMember.toArray(memberString);
+                        System.out.println(memberString);
+                        study = new CreateStudyReq();
                         study.username = LoginInfo.username;
                         study.owner = LoginInfo.username;
                         study.KEY = LoginInfo.KEY;
                         study.course = createCourse;
                         study.topic = createTopic;
-                        study.members = null;
+                        study.members = memberString;
                         study.date = createDate;
                         study.time = createTime;
-                        study.publicView = isChecked;
+                        study.publicView = publicView;
 
                         CreateStudyRes createRes = (CreateStudyRes) new Webutil().webRequest(study);
                         if(createRes.success == true){
