@@ -20,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -55,7 +56,7 @@ public class StudyGroupActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         Rview = (RecyclerView) findViewById(R.id.recycler_view);
-
+        final Button searchButton = (Button)findViewById(R.id.studySearchButton);
         SGAdapter = new SGAdapter(groupList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         Rview.setLayoutManager(mLayoutManager);
@@ -76,7 +77,14 @@ public class StudyGroupActivity extends AppCompatActivity {
                     }
             );
         }
-
+        assert searchButton != null;
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(StudyGroupActivity.this, StudySearchActivity.class);
+                startActivity(myIntent);
+            }
+        });
         class NetworkCallTask extends AsyncTask<Object, Object, Object> {
 
 
