@@ -136,7 +136,8 @@ public class LoginActivity extends AppCompatActivity {
                             LoginActivity.this.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Toast.makeText(LoginActivity.this, "Enter a correct username or password",Toast.LENGTH_SHORT).show();
+                                    Snackbar snackbar = Snackbar.make(findViewById(R.id.loginCoordinator),"Enter valid login and password",Snackbar.LENGTH_LONG);
+                                    snackbar.show();
 
                                 }
                             });

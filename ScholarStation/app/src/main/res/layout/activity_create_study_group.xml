@@ -40,20 +40,27 @@
                 android:id="@+id/createStudyTopic" />
             </android.support.design.widget.TextInputLayout>
 
-
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Enter Date"
                 android:focusable="false"
                 android:id="@+id/createStudyDate" />
+            </android.support.design.widget.TextInputLayout>
 
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Enter Time"
                 android:focusable="false"
                 android:id="@+id/createStudyTime" />
+            </android.support.design.widget.TextInputLayout>
 
             <LinearLayout
                 android:orientation="vertical"

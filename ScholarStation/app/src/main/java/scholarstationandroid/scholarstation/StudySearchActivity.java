@@ -46,6 +46,13 @@ public class StudySearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(searchType==-1){
+                    StudySearchActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Snackbar snackbar = Snackbar.make(findViewById(R.id.myCoordinatorLayout),"Select a search criteria",Snackbar.LENGTH_LONG);
+                            snackbar.show();
+                        }
+                    });
                     //cant do search without raido buttons selected
                 }else{
                     final String queryString = queryTextField.getText().toString();

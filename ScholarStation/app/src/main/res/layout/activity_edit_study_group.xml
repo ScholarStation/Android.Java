@@ -25,7 +25,7 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Enter Course"
+                    android:hint="Edit Course"
                     android:id="@+id/editStudyCourse" />
             </android.support.design.widget.TextInputLayout>
 
@@ -35,24 +35,32 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Enter Topic"
+                    android:hint="Edit Topic"
                     android:id="@+id/editStudyTopic" />
             </android.support.design.widget.TextInputLayout>
 
 
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter Date"
+                android:hint="Edit Date"
                 android:focusable="false"
                 android:id="@+id/editStudyDate" />
+            </android.support.design.widget.TextInputLayout>
 
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter Time"
+                android:hint="Edit Time"
                 android:focusable="false"
                 android:id="@+id/editStudyTime" />
+            </android.support.design.widget.TextInputLayout>
 
             <LinearLayout
                 android:orientation="vertical"

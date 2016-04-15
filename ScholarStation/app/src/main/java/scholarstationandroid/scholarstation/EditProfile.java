@@ -2,6 +2,7 @@ package scholarstationandroid.scholarstation;
 
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -262,6 +263,13 @@ public class EditProfile extends AppCompatActivity {
                     @Override
                     protected void onPostExecute(Object o) {
                         try {
+                            EditProfile.this.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Snackbar snackbar = Snackbar.make(findViewById(R.id.editProfileCoordinator),"Profile Saved",Snackbar.LENGTH_LONG);
+                                    snackbar.show();
+                                }
+                            });
                             Intent myIntent = new Intent(EditProfile.this, ProfileActivity.class);
                             startActivity(myIntent);
                             finish();

@@ -209,45 +209,9 @@ public class CreateStudyGroup extends AppCompatActivity {
                 // Do something at this time
             }
         });
-        assert time != null;
-        time.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // Do some thing now
-            }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                createTime = time.getText().toString();
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                // Do something at this time
-            }
-        });
-        assert date != null;
-        date.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // Do some thing now
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                createDate = date.getText().toString();
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                // Do something at this time
-            }
-        });
         //</editor-fold>
+
 
         assert membersButton!= null;
         membersButton.setOnClickListener(new View.OnClickListener() {

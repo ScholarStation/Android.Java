@@ -63,6 +63,7 @@ public class EditStudyGroup extends AppCompatActivity {
         final Button editStudy = (Button) findViewById(R.id.editStudyButton);
         papCheckbox = (CheckBox) findViewById(R.id.createCheckBox);
 
+        setTitle("Edit Study Group");
         String studyObject;
         Bundle extras = getIntent().getExtras();
         if (extras != null) {

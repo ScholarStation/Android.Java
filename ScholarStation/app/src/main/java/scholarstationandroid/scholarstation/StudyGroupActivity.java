@@ -276,6 +276,14 @@ public class StudyGroupActivity extends AppCompatActivity {
                                             } catch (Exception e) {
                                                 e.printStackTrace();
                                             }
+                                            StudyGroupActivity.this.runOnUiThread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    SGAdapter.notifyDataSetChanged();
+                                                    Snackbar snackbar = Snackbar.make(findViewById(R.id.studyGroupCoordinator),"Deleted Study Group",Snackbar.LENGTH_LONG);
+                                                    snackbar.show();
+                                                }
+                                            });
                                         } catch (Exception e) {
                                             e.printStackTrace();
                                         }
