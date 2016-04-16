@@ -82,18 +82,11 @@
                 android:layout_gravity="center_horizontal"
                 android:weightSum="1">
 
-                <ScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/scrollView2" >
-
                     <ListView
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
+                        android:layout_height="match_parent"
                         android:id="@+id/study_search_listView"
                         android:layout_weight="4.27" />
-                </ScrollView>
-
             </LinearLayout>
 
         </LinearLayout>
