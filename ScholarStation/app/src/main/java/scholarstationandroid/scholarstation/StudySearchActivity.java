@@ -168,6 +168,8 @@ public class StudySearchActivity extends AppCompatActivity {
                                     StudyJoinRes joinRes = (StudyJoinRes) new Webutil().webRequest(joinStudy);
                                     if(joinRes.success = true){
                                         System.out.println("!!!!!!! JOINED THE STUDY GROUP !!!!!!");
+                                        Intent myIntent = new Intent(StudySearchActivity.this, StudyGroupActivity.class);
+                                        startActivity(myIntent);
                                         finish();
                                     }else{
                                         System.out.println("!!!!!!!!! YOU DID NOT JOIN THE STUDY GROUP !!!!!!!!");
