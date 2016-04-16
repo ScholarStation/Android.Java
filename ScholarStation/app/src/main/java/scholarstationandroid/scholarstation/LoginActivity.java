@@ -128,6 +128,7 @@ public class LoginActivity extends AppCompatActivity {
                         login.password = passWord;
                         LoginRes loginRes = (LoginRes) new Webutil().webRequest(login);
                         LoginInfo.username = userName;
+                        LoginInfo.reminder = loginRes.reminder;
                         LoginInfo.KEY = loginRes.KEY;
                         LoginInfo.reminder = loginRes.reminder;
 
