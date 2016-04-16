@@ -161,6 +161,8 @@ public class StudySearchActivity extends AppCompatActivity {
                                 @Override
                                 protected Object doInBackground(Object... params) {
                                     StudyJoinReq joinStudy = new StudyJoinReq();
+                                    joinStudy.username = LoginInfo.username;
+                                    joinStudy.KEY = LoginInfo.KEY;
                                     joinStudy.newMember = LoginInfo.username;
                                     joinStudy._id = studyGroupsList.get(position)._id;
                                     StudyJoinRes joinRes = (StudyJoinRes) new Webutil().webRequest(joinStudy);
