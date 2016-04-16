@@ -1,8 +1,10 @@
 package scholarstationandroid.scholarstation;
 
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -260,6 +262,7 @@ public class CreateStudyGroup extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
+                makeReminder();
 
                 class NetworkCallTask extends AsyncTask<Object, Object, Object> {
 
@@ -320,5 +323,13 @@ public class CreateStudyGroup extends AppCompatActivity {
         String mFormat = "MM/dd/yy";
         SimpleDateFormat sdf = new SimpleDateFormat(mFormat, Locale.US);
         date.setText(sdf.format(mCalendar.getTime()));
+    }
+
+    private void makeReminder(){
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(this,ReminderAlarmReceiver.class);
+        //intent.putExtra(ReminderAlarmReceiver.reminder_text, content);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this,0,intent,0);
+        alarmManager.set(AlarmManager.RTC_WAKEUP,mCalendar.getTimeInMillis(),pendingIntent);
     }
 }

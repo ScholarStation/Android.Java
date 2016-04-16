@@ -1,5 +1,6 @@
 package WebUtil.Login;
 
+import WebUtil.Reminder.Reminders;
 import WebUtil.WebResponse;
 
 /**
@@ -7,4 +8,5 @@ import WebUtil.WebResponse;
  */
 public class LoginRes extends WebResponse{
    public String KEY;
+   public Reminders[] reminder;
 }

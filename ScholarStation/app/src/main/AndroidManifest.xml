@@ -46,7 +46,11 @@
             android:name=".Feedback_Form_List"
             android:label="@string/title_activity_feedback__form__list"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".StudySearchActivity"></activity>
+        <activity android:name=".StudySearchActivity" />
+        <activity
+            android:name=".FeedbackList"
+            android:label="@string/title_activity_feedback_list"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
