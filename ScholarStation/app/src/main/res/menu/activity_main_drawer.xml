@@ -8,12 +8,12 @@
             android:title="Profile" />
         <item
             android:id="@+id/nav_study"
-            android:icon="@drawable/studygroupimage"
+            android:icon="@drawable/ic_action_sgicon"
             android:title="Study Groups" />
         <item
             android:id="@+id/nav_feedback"
             android:title="Feedback Forms"
-            android:icon="@drawable/notesimage"/>
+            android:icon="@drawable/ic_action_fbicon"/>
 
 
     </group>
