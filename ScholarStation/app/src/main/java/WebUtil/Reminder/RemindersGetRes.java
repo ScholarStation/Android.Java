@@ -1,19 +1,17 @@
 package WebUtil.Reminder;
 
-import java.util.Arrays;
 import WebUtil.WebResponse;
 
 /**
- * Created by Jason on 4/15/2016.
+ * Created by Jason on 4/17/2016.
  */
-//Currently not needed
-public class ReminderRes extends WebResponse {
-    public Reminders[] reminder;
+public class RemindersGetRes extends WebResponse {
+    public Reminders[] reminders;
 
     @Override
     public String toString(){
         String returnS = "";
-        for(Reminders item : reminder) {
+        for(Reminders item : reminders) {
             returnS += item.toString();
         }
         return returnS;

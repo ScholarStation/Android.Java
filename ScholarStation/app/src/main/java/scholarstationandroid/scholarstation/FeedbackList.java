@@ -1,6 +1,7 @@
 package scholarstationandroid.scholarstation;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -10,14 +11,19 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
 import WebUtil.Reminder.ReminderReq;
 import WebUtil.Reminder.Reminders;
+import WebUtil.Reminder.RemindersGetReq;
+import WebUtil.Reminder.RemindersGetRes;
 import WebUtil.Webutil;
 import layout.LoginInfo;
 
@@ -36,10 +42,47 @@ public class FeedbackList extends AppCompatActivity {
         fbAdapter = new FBAdapter(this,remindersArrayList);
         listView = (ListView) findViewById(R.id.feedbackList);
         listView.setAdapter(fbAdapter);
+        setTitle("Feedback Forms");
 
-        //System.out.println(LoginInfo.reminders);
-        for(Reminders rm:LoginInfo.reminders)
-            remindersArrayList.add(rm);
+        class NetworkCallTask extends AsyncTask<Object, Object, Object>{
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+            }
+
+            @Override
+            protected Object doInBackground(Object... params) {
+                return updateUI();
+            }
+
+            @Override
+            protected void onProgressUpdate(Object... values) {
+                super.onProgressUpdate(values);
+            }
+
+            @Override
+            protected void onPostExecute(Object o) {
+                RemindersGetRes remindersGetRes = (RemindersGetRes)o;
+                try{
+                    for(Reminders rm: remindersGetRes.reminders){
+                        remindersArrayList.add(rm);
+                        fbAdapter.notifyDataSetChanged();
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
+                FeedbackList.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        fbAdapter.notifyDataSetChanged();
+                    }
+                });
+
+            }
+        }
+        new NetworkCallTask().execute(this);
     }
 
     class FBAdapter extends ArrayAdapter<Reminders>{
@@ -63,9 +106,32 @@ public class FeedbackList extends AppCompatActivity {
                 dateView.setText(String.valueOf(remind.date));
 
             }
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Intent mIntent = new Intent(FeedbackList.this, Feedback_form.class);
+                    Bundle bundle = new Bundle();
+                    mIntent.putExtra("FeedbackFormID", new Gson().toJson(remindersArrayList.get(position)));
+                    mIntent.putExtras(bundle);
+                    startActivity(mIntent);
+                    finish();
+                }
+            });
             return convertView;
         }
 
+
+
+    }
+
+    public RemindersGetRes updateUI(){
+
+        RemindersGetRes remindersGetRes;
+        RemindersGetReq remindersGetReq = new RemindersGetReq();
+        remindersGetReq.username = LoginInfo.username;
+        remindersGetReq.KEY = LoginInfo.KEY;
+        remindersGetRes  = (RemindersGetRes) new Webutil().webRequest(remindersGetReq);
+        return remindersGetRes;
     }
 
 }

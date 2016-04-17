@@ -12,6 +12,10 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import WebUtil.FeedBack.DeletFeedBackRes;
+import WebUtil.FeedBack.DeleteFeedbackReq;
+import WebUtil.FeedBack.FeedBackReq;
+import WebUtil.FeedBack.FeedBackRes;
 import WebUtil.Login.CreateLoginReq;
 import WebUtil.Login.CreateLoginRes;
 import WebUtil.Login.LoginReq;
@@ -22,6 +26,8 @@ import WebUtil.Profile.EditProfileReq;
 import WebUtil.Profile.EditProfileRes;
 import WebUtil.Profile.ProfileRes;
 import WebUtil.Profile.ProfileReq;
+import WebUtil.Reminder.RemindersGetReq;
+import WebUtil.Reminder.RemindersGetRes;
 import WebUtil.StudySession.CreateStudyReq;
 import WebUtil.StudySession.CreateStudyRes;
 import WebUtil.StudySession.DeleteStudyReq;
@@ -57,6 +63,9 @@ public class Webutil {
     private  String StudyEdt = "http://70.187.52.39:3000/StudyUtility/EditByID";
     private  String StudyDel = "http://70.187.52.39:3000/StudyUtility/DeleteByID";
     private  String StudySrc = "http://70.187.52.39:3000/StudyUtility/Search";
+    private String Feedback = "http://70.187.52.39:3000/FeedBackUtility/Create";
+    private String FeedbackDel = "http://70.187.52.39:3000/FeedBackUtility/DeleteByID";
+    private String RemindersGet = "http://70.187.52.39:3000/FeedBackUtility/GetReminders";
 
     public Object webRequest(WebRequest payload){
 
@@ -98,6 +107,15 @@ public class Webutil {
         }else if (payload instanceof SearchStudyReq){
             post = new HttpPost(StudySrc);
             returnType = new StudyGroupRes();
+        }else if (payload instanceof FeedBackReq){
+            post = new HttpPost(Feedback);
+            returnType = new FeedBackRes();
+        }else if(payload instanceof DeleteFeedbackReq){
+            post = new HttpPost(FeedbackDel);
+            returnType = new DeletFeedBackRes();
+        }else if(payload instanceof RemindersGetReq){
+            post = new HttpPost(RemindersGet);
+            returnType  = new RemindersGetRes();
         }
 
 

@@ -47,12 +47,15 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/topicTextView"
+        android:paddingTop="79dp"
+        android:layout_toRightOf="@+id/topicTextView"
+        android:editable="true"
         android:id="@+id/topicEditText"/>
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/topicEditText"
+        android:layout_below="@+id/topicTextView"
+        android:paddingTop="15dp"
         android:text="Send Feedback"
         android:id="@+id/sendFeedback"
         />
