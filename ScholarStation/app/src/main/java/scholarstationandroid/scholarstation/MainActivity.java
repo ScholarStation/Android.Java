@@ -94,6 +94,9 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(this,StudyGroupActivity.class);
             startActivity(intent);
 
+        }else if (id == R.id.nav_feedback){
+            Intent intent = new Intent(this,FeedbackList.class);
+            startActivity(intent);
         }
 
 

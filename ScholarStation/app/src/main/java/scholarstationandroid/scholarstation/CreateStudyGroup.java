@@ -1,8 +1,10 @@
 package scholarstationandroid.scholarstation;
 
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -26,6 +28,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import WebUtil.Login.LoginReq;
@@ -51,6 +54,7 @@ public class CreateStudyGroup extends AppCompatActivity {
     EditText time;
     EditText date;
     Calendar mCalendar;
+    Date dateReminder = new Date();
 
 
     @Override
@@ -87,8 +91,11 @@ public class CreateStudyGroup extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth){
                 mCalendar.set(Calendar.YEAR, year);
+                dateReminder.setYear(year - 1900);
                 mCalendar.set(Calendar.MONTH, monthOfYear);
+                dateReminder.setMonth(monthOfYear);
                 mCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                dateReminder.setDate(dayOfMonth);
                 updateDateText();
             }
         };
@@ -98,7 +105,9 @@ public class CreateStudyGroup extends AppCompatActivity {
             @Override
             public void onTimeSet(TimePicker view, int hour, int minute){
                 mCalendar.set(Calendar.HOUR_OF_DAY, hour);
+                dateReminder.setHours(hour);
                 mCalendar.set(Calendar.MINUTE, minute);
+                dateReminder.setMinutes(minute);
                 // formats hours to 12hr time
                 if (hour == 0)
                     hour = hour + 12;
@@ -143,6 +152,7 @@ public class CreateStudyGroup extends AppCompatActivity {
                 }
 
                 time.setText(hour + ":" + formattedMinutes);
+                createTime = time.getText().toString();
             }
         };
 
@@ -151,6 +161,7 @@ public class CreateStudyGroup extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 DatePickerDialog datePickerDialog =  new DatePickerDialog(CreateStudyGroup.this,datePicker,mCalendar.get(Calendar.YEAR),mCalendar.get(Calendar.MONTH),mCalendar.get(Calendar.DAY_OF_MONTH));
+
                 datePickerDialog.setTitle("Set Date:");
                 datePickerDialog.show();
             }
@@ -210,6 +221,7 @@ public class CreateStudyGroup extends AppCompatActivity {
             }
         });
 
+
         //</editor-fold>
 
 
@@ -261,6 +273,7 @@ public class CreateStudyGroup extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+
                 class NetworkCallTask extends AsyncTask<Object, Object, Object> {
 
 
@@ -287,8 +300,10 @@ public class CreateStudyGroup extends AppCompatActivity {
 
                         CreateStudyRes createRes = (CreateStudyRes) new Webutil().webRequest(study);
                         if(createRes.success == true){
+                            makeReminder(createTopic + " " +createCourse );
                             Intent myIntent = new Intent(CreateStudyGroup.this, StudyGroupActivity.class);
                             startActivity(myIntent);
+
                             finish();
                         }else{
                             System.out.println("Failed To Create Study Group");
@@ -320,6 +335,18 @@ public class CreateStudyGroup extends AppCompatActivity {
         String mFormat = "MM/dd/yy";
         SimpleDateFormat sdf = new SimpleDateFormat(mFormat, Locale.US);
         date.setText(sdf.format(mCalendar.getTime()));
+
+        createDate = date.getText().toString();
+    }
+
+    private void makeReminder(String content){
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(this,ReminderAlarmReceiver.class);
+        intent.putExtra(ReminderAlarmReceiver.reminder_text, content);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this,0,intent,0);
+        alarmManager.set(AlarmManager.RTC_WAKEUP,dateReminder.getTime(),pendingIntent);
+        System.out.println("IT FKIN WORKS +++++++++++++++++++++++++++++++++++++++++++++++++");
+        System.out.println("+++++++++++++++++++++++++++++++++" + dateReminder.toString());
     }
 
     public void onBackPressed(){
