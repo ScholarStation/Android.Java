@@ -13,6 +13,7 @@ public class ProfileRes extends WebResponse {
     public String gender;
     public String year;
     public int age;
+    public String _id;
 
     @Override
     public String toString() {
@@ -23,7 +24,8 @@ public class ProfileRes extends WebResponse {
                 ", email='" + email + '\'' +
                 ", gender='" + gender + '\'' +
                 ", year='" + year + '\'' +
-                ", age=" + age +
+                ", age=" + age + '\''+
+                ", id= "+_id+
                 '}';
     }
 }

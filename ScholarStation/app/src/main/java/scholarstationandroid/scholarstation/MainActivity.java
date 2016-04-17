@@ -18,7 +18,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
+import layout.LoginInfo;
 
 
 public class MainActivity extends AppCompatActivity
@@ -31,23 +33,19 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//fab.setOnClickListener(new View.OnClickListener() {
-//          @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        NavigationView navigationView1 = (NavigationView) findViewById(R.id.nav_view);
+        View userView = navigationView1.getHeaderView(0);
+        TextView drawer_user = (TextView)userView.findViewById(R.id.drawer_username);
+        drawer_user.setText(LoginInfo.username);
+
     }
 
     @Override
@@ -88,19 +86,16 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_home) {
-
-
-
-
-        } else if (id == R.id.nav_profile) {
+        if (id == R.id.nav_profile) {
             Intent intent = new Intent(this,ProfileActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_study) {
-            Intent intent = new Intent(this,StudyGroupListView.class);
+        }
+        else if (id == R.id.nav_study) {
+            Intent intent = new Intent(this,StudyGroupActivity.class);
             startActivity(intent);
 
         }
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
