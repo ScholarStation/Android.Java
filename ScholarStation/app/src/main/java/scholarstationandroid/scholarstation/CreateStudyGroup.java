@@ -321,4 +321,9 @@ public class CreateStudyGroup extends AppCompatActivity {
         SimpleDateFormat sdf = new SimpleDateFormat(mFormat, Locale.US);
         date.setText(sdf.format(mCalendar.getTime()));
     }
+
+    public void onBackPressed(){
+        Intent mIntent = new Intent(this, StudyGroupActivity.class);
+        startActivity(mIntent);
+    }
 }

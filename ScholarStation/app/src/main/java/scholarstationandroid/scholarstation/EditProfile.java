@@ -283,4 +283,9 @@ public class EditProfile extends AppCompatActivity {
             }
         });
     }
+
+    public void onBackPressed(){
+        Intent mIntent = new Intent(this, ProfileActivity.class);
+        startActivity(mIntent);
+    }
 }

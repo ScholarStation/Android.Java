@@ -226,4 +226,9 @@ public class StudySearchActivity extends AppCompatActivity {
         }
 
     }
+
+    public void onBackPressed(){
+        Intent mIntent = new Intent(this,StudyGroupActivity.class);
+        startActivity(mIntent);
+    }
 }
