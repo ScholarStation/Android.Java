@@ -37,8 +37,9 @@ public class FeedbackList extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.feedbackList);
         listView.setAdapter(fbAdapter);
 
-        for(Reminders rm:LoginInfo.reminder)
-            remindersArrayList.add(rm);
+        System.out.println(LoginInfo.reminder);
+        /*for(Reminders rm:LoginInfo.reminder)
+            remindersArrayList.add(rm);*/
     }
 
     class FBAdapter extends ArrayAdapter<Reminders>{

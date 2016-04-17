@@ -24,6 +24,7 @@ public class ReminderAlarmReceiver extends BroadcastReceiver {
                 .setSmallIcon(R.drawable.mriknow2)
                 .setTicker("Reminder")
                 .setWhen(new Date().getTime())
+                .setContentTitle(reminder_text)
                 .setContentText(reminderText)
                 .setContentIntent(pendingIntent)
                 .build();

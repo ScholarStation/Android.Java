@@ -129,8 +129,8 @@ public class LoginActivity extends AppCompatActivity {
                         LoginRes loginRes = (LoginRes) new Webutil().webRequest(login);
                         LoginInfo.username = userName;
                         LoginInfo.reminder = loginRes.reminder;
+                        System.out.println(loginRes.reminder + "+++++++++++++++++++++++++++++++++++++++++++");
                         LoginInfo.KEY = loginRes.KEY;
-                        LoginInfo.reminder = loginRes.reminder;
 
                         if (loginRes.success == true) {
                             Intent myIntent = new Intent(LoginActivity.this, MainActivity.class);
