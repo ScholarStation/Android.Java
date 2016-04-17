@@ -1,6 +1,8 @@
 package scholarstationandroid.scholarstation;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +10,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,7 +31,7 @@ public class StudySearchActivity extends AppCompatActivity {
     //RaidoButton topicRB,courseRB,membersRB;
     int searchType=-1;
     ArrayList<StudyGroup> studyGroupsList = new ArrayList<>();
-
+    final Context context = this;
     EditText queryTextField;
     SGAdapter adapter;
     ListView listView;
@@ -116,7 +119,7 @@ public class StudySearchActivity extends AppCompatActivity {
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
 //            super.getView(position, convertView, parent);
             StudyGroup sg = getItem(position);
             if(convertView==null){
@@ -130,6 +133,69 @@ public class StudySearchActivity extends AppCompatActivity {
                 topicView.setText(sg.topic);
                 courseView.setText(sg.course);
             }
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                    final Dialog dialog = new Dialog(context);
+                    dialog.setContentView(R.layout.join_study_group);
+                    dialog.setTitle("Join Group");
+                    Button yes = (Button) dialog.findViewById(R.id.yesButton);
+                    Button no = (Button) dialog.findViewById(R.id.noButton);
+                    dialog.show();
+                    no.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+                        }
+                    });
+                    yes.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            class NetworkCallTask extends AsyncTask<Object, Object, Object> {
+
+                                @Override
+                                protected void onPreExecute() {
+                                    super.onPreExecute();
+                                }
+
+                                @Override
+                                protected Object doInBackground(Object... params) {
+                                    StudyJoinReq joinStudy = new StudyJoinReq();
+                                    joinStudy.username = LoginInfo.username;
+                                    joinStudy.KEY = LoginInfo.KEY;
+                                    joinStudy.newMember = LoginInfo.username;
+                                    joinStudy._id = studyGroupsList.get(position)._id;
+                                    StudyJoinRes joinRes = (StudyJoinRes) new Webutil().webRequest(joinStudy);
+                                    if(joinRes.success = true){
+                                        System.out.println("!!!!!!! JOINED THE STUDY GROUP !!!!!!");
+                                        Intent myIntent = new Intent(StudySearchActivity.this, StudyGroupActivity.class);
+                                        startActivity(myIntent);
+                                        finish();
+                                    }else{
+                                        System.out.println("!!!!!!!!! YOU DID NOT JOIN THE STUDY GROUP !!!!!!!!");
+                                    }
+                                    return joinRes;
+                                }
+
+                                @Override
+                                protected void onProgressUpdate(Object... values) {
+                                    super.onProgressUpdate(values);
+                                }
+
+                                @Override
+                                protected void onPostExecute(Object o) {
+                                    try {
+
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }
+                            new NetworkCallTask().execute(new Object());
+                        }
+                });
+              }
+            });
 
             return convertView;
         }
@@ -159,5 +225,11 @@ public class StudySearchActivity extends AppCompatActivity {
                 break;
         }
 
+    }
+
+    public void onBackPressed(){
+        Intent mIntent = new Intent(this,StudyGroupActivity.class);
+        startActivity(mIntent);
+        finish();
     }
 }

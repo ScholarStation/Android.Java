@@ -348,4 +348,9 @@ public class CreateStudyGroup extends AppCompatActivity {
         System.out.println("IT FKIN WORKS +++++++++++++++++++++++++++++++++++++++++++++++++");
         System.out.println("+++++++++++++++++++++++++++++++++" + dateReminder.toString());
     }
+
+    public void onBackPressed(){
+        Intent mIntent = new Intent(this, StudyGroupActivity.class);
+        startActivity(mIntent);
+    }
 }

@@ -83,6 +83,7 @@ public class StudyGroupActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent myIntent = new Intent(StudyGroupActivity.this, StudySearchActivity.class);
                 startActivity(myIntent);
+                finish();
             }
         });
         class NetworkCallTask extends AsyncTask<Object, Object, Object> {

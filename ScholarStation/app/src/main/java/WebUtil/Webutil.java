@@ -37,6 +37,8 @@ import WebUtil.StudySession.EditStudyRes;
 import WebUtil.StudySession.SearchStudyReq;
 import WebUtil.StudySession.StudyGroupReq;
 import WebUtil.StudySession.StudyGroupRes;
+import WebUtil.StudySession.StudyJoinReq;
+import WebUtil.StudySession.StudyJoinRes;
 import scholarstationandroid.scholarstation.EditProfile;
 
 
@@ -63,9 +65,11 @@ public class Webutil {
     private  String StudyEdt = "http://70.187.52.39:3000/StudyUtility/EditByID";
     private  String StudyDel = "http://70.187.52.39:3000/StudyUtility/DeleteByID";
     private  String StudySrc = "http://70.187.52.39:3000/StudyUtility/Search";
+    private  String StudyJoin = "http://70.187.52.39:3000/StudyUtility/JoinByID";//need path
     private String Feedback = "http://70.187.52.39:3000/FeedBackUtility/Create";
     private String FeedbackDel = "http://70.187.52.39:3000/FeedBackUtility/DeleteByID";
     private String RemindersGet = "http://70.187.52.39:3000/FeedBackUtility/GetReminders";
+
 
     public Object webRequest(WebRequest payload){
 
@@ -107,6 +111,9 @@ public class Webutil {
         }else if (payload instanceof SearchStudyReq){
             post = new HttpPost(StudySrc);
             returnType = new StudyGroupRes();
+        }else if (payload instanceof StudyJoinReq){
+            post = new HttpPost(StudyJoin);
+            returnType = new StudyJoinRes();
         }else if (payload instanceof FeedBackReq){
             post = new HttpPost(Feedback);
             returnType = new FeedBackRes();
@@ -116,6 +123,7 @@ public class Webutil {
         }else if(payload instanceof RemindersGetReq){
             post = new HttpPost(RemindersGet);
             returnType  = new RemindersGetRes();
+
         }
 
 
