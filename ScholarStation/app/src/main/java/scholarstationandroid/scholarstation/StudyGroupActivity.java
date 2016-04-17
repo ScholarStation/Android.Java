@@ -96,21 +96,7 @@ public class StudyGroupActivity extends AppCompatActivity {
             }
 
             @Override
-            protected Object doInBackground(Object... params) {
-//                System.out.println("MAKING A WEB REQUEST FOR STUDY GROUPS *******************************");
-//                StudyGroupRes studyGroupRes;
-//                StudyGroupReq studyGroupReq = new StudyGroupReq();
-//
-//                studyGroupReq.username=LoginInfo.username;
-//                studyGroupReq.KEY= LoginInfo.KEY;
-//
-//                studyGroupRes = (StudyGroupRes) new Webutil().webRequest(studyGroupReq);
-//                System.out.println("GOT STUDY GTOUPS!!!! !!! !!! !!! !!! !!! !!! !!! !! ! ! ! ! ! ! ! ! ! ! !"+studyGroupRes.toString());
-//                return studyGroupRes;
-
-                return updateUI();
-
-            }
+            protected Object doInBackground(Object... params) {return updateUI();}
 
             @Override
             protected void onProgressUpdate(Object... values) {
