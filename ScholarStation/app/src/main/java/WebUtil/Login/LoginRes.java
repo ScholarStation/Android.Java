@@ -8,5 +8,5 @@ import WebUtil.WebResponse;
  */
 public class LoginRes extends WebResponse{
    public String KEY;
-   public Reminders[] reminder;
+   public Reminders[] reminders;
 }

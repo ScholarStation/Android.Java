@@ -8,5 +8,5 @@ import WebUtil.Reminder.Reminders;
 public class LoginInfo {
     public static String username;
     public static String KEY;
-    public static Reminders[] reminder;
+    public static Reminders[] reminders;
 }
