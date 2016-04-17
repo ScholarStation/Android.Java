@@ -28,7 +28,6 @@ public class StudySearchActivity extends AppCompatActivity {
 
 
     Button searchButton;
-    //RaidoButton topicRB,courseRB,membersRB;
     int searchType=-1;
     ArrayList<StudyGroup> studyGroupsList = new ArrayList<>();
     final Context context = this;
@@ -39,6 +38,7 @@ public class StudySearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_study_search);
+        setTitle("Search Study Groups");
 
         adapter = new SGAdapter(this,studyGroupsList);
         listView = (ListView) findViewById(R.id.study_search_listView);

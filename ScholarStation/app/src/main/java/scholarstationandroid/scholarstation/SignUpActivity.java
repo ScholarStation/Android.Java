@@ -12,33 +12,28 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import WebUtil.Login.CreateLoginReq;
-import WebUtil.Login.CreateLoginRes;
-import WebUtil.Login.LoginReq;
-import WebUtil.Login.LoginRes;
 import WebUtil.Profile.CreateProfileReq;
-import WebUtil.Profile.CreateProfileRes;
 import WebUtil.WebResponse;
 import WebUtil.Webutil;
-import layout.LoginInfo;
 
 public class SignUpActivity extends AppCompatActivity {
     String userName = "";
     String passWord = "";
     String firstName = "";
     String lastName = "";
-    String signUpage = "";
-    String signUpgender = "";
-    String signUpemail = "";
-    String signUpyear = "";
-    String signUpmajor = "";
+    String signUpPage = "";
+    String signUpGender = "";
+    String signUpEmail = "";
+    String signUpYear = "";
+    String signUpMajor = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
         final EditText user = (EditText) findViewById(R.id.signup_user);
         final EditText pass = (EditText) findViewById(R.id.signup_password);
-        final EditText fname = (EditText) findViewById(R.id.signup_fname);
-        final EditText lname = (EditText) findViewById(R.id.signup_lName);
+        final EditText fName = (EditText) findViewById(R.id.signup_fname);
+        final EditText lName = (EditText) findViewById(R.id.signup_lName);
         final EditText age = (EditText) findViewById(R.id.signup_age);
         final EditText gender = (EditText) findViewById(R.id.signup_gender);
         final EditText email = (EditText) findViewById(R.id.signup_email);
@@ -46,6 +41,7 @@ public class SignUpActivity extends AppCompatActivity {
         final EditText major = (EditText) findViewById(R.id.signup_major);
         final Button signUp = (Button) findViewById(R.id.signupButton);
 
+        setTitle("Register");
         age.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
 
         //<editor-fold desc="On text change">
@@ -87,8 +83,8 @@ public class SignUpActivity extends AppCompatActivity {
                 // Do something at this time
             }
         });
-        assert fname != null;
-        fname.addTextChangedListener(new TextWatcher() {
+        assert fName != null;
+        fName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 // Do some thing now
@@ -97,7 +93,7 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                firstName = fname.getText().toString();
+                firstName = fName.getText().toString();
 
             }
 
@@ -106,8 +102,8 @@ public class SignUpActivity extends AppCompatActivity {
                 // Do something at this time
             }
         });
-        assert lname != null;
-        lname.addTextChangedListener(new TextWatcher() {
+        assert lName != null;
+        lName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 // Do some thing now
@@ -116,7 +112,7 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                lastName = lname.getText().toString();
+                lastName = lName.getText().toString();
 
             }
 
@@ -135,7 +131,7 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                signUpage = age.getText().toString();
+                signUpPage = age.getText().toString();
 
             }
 
@@ -154,7 +150,7 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                signUpgender = gender.getText().toString();
+                signUpGender = gender.getText().toString();
 
             }
 
@@ -173,7 +169,7 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                signUpemail = email.getText().toString();
+                signUpEmail = email.getText().toString();
 
             }
 
@@ -192,7 +188,7 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                signUpyear = year.getText().toString();
+                signUpYear = year.getText().toString();
 
             }
 
@@ -211,7 +207,7 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                signUpmajor = major.getText().toString();
+                signUpMajor = major.getText().toString();
 
             }
 
@@ -244,11 +240,11 @@ public class SignUpActivity extends AppCompatActivity {
 
                         createProfileReq.fname = firstName;
                         createProfileReq.lname = lastName;
-                        createProfileReq.age = signUpage;
-                        createProfileReq.gender = signUpgender;
-                        createProfileReq.email = signUpemail;
-                        createProfileReq.year = signUpyear;
-                        createProfileReq.major = signUpmajor;
+                        createProfileReq.age = signUpPage;
+                        createProfileReq.gender = signUpGender;
+                        createProfileReq.email = signUpEmail;
+                        createProfileReq.year = signUpYear;
+                        createProfileReq.major = signUpMajor;
                         createProfileReq.username = createLogin.username;
                         WebResponse createProfileRes = (WebResponse) new Webutil().webRequest(createProfileReq);
                         return createProfileRes;

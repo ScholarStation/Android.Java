@@ -56,7 +56,7 @@ public class CreateStudyGroup extends AppCompatActivity {
     Calendar mCalendar;
     Date dateReminder = new Date();
 
-
+   // Creates study group object that is sent to the server and goes back to study group activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,7 +73,7 @@ public class CreateStudyGroup extends AppCompatActivity {
 
         setTitle("Create Study Group");
 
-
+        //Listens for a checkbox event to happen and changes value of publicView
         papCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -86,12 +86,13 @@ public class CreateStudyGroup extends AppCompatActivity {
             }
         });
 
+        //If date EditText field is selected then a popup will appear allowing the user to select the date
         mCalendar  = Calendar.getInstance();
         final DatePickerDialog.OnDateSetListener datePicker = new DatePickerDialog.OnDateSetListener(){
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth){
                 mCalendar.set(Calendar.YEAR, year);
-                dateReminder.setYear(year - 1900);
+                dateReminder.setYear(year - 1900);//method setyear() adds 1900 to the year, so it needs to be subtracted
                 mCalendar.set(Calendar.MONTH, monthOfYear);
                 dateReminder.setMonth(monthOfYear);
                 mCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -100,7 +101,7 @@ public class CreateStudyGroup extends AppCompatActivity {
             }
         };
 
-
+        //If time EditText field is selected then a popup will appear allowing the user to select the time
         final TimePickerDialog.OnTimeSetListener timePicker = new TimePickerDialog.OnTimeSetListener(){
             @Override
             public void onTimeSet(TimePicker view, int hour, int minute){
@@ -113,7 +114,11 @@ public class CreateStudyGroup extends AppCompatActivity {
                     hour = hour + 12;
                 else if (hour > 12)
                     hour = hour - 12;
-                //corrects minutes to the correct format 0-> 00
+                //
+                /*
+                    corrects minutes to the correct format 0-> 00
+                    Have to change minute to string as 08 and 09 are hexadecimal and can not be used as a integer
+                 */
                 String formattedMinutes;
                 switch (minute) {
                     case 0:
@@ -150,12 +155,12 @@ public class CreateStudyGroup extends AppCompatActivity {
                         formattedMinutes = Integer.toString(minute);
                         break;
                 }
-
                 time.setText(hour + ":" + formattedMinutes);
                 createTime = time.getText().toString();
             }
         };
 
+        //Listens for a click event on date EditText
         assert date!= null;
         date.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -167,6 +172,7 @@ public class CreateStudyGroup extends AppCompatActivity {
             }
         });
 
+        //Listens for a click event on time EditText
         assert time!= null;
         time.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -176,10 +182,6 @@ public class CreateStudyGroup extends AppCompatActivity {
                 timePickerDialog.show();
             }
         });
-
-
-
-
 
         //<editor-fold desc="Get Text">
         assert course != null;
@@ -224,10 +226,10 @@ public class CreateStudyGroup extends AppCompatActivity {
 
         //</editor-fold>
 
-
         assert membersButton!= null;
         membersButton.setOnClickListener(new View.OnClickListener() {
 
+            //If membersButton is click will show a dialog box allowing the user to add another member
             @Override
             public void onClick(View view) {
                 final Dialog dialog = new Dialog(context);
@@ -257,7 +259,6 @@ public class CreateStudyGroup extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         createMember.add(createMemberName);
-                        //System.out.println(createMember);
                         members.setText(Arrays.toString(createMember.toArray()).replace("[", "").replace(',', '\n').replace("]", "").replace(" ", ""));
                         dialog.dismiss();
                     }
@@ -270,13 +271,12 @@ public class CreateStudyGroup extends AppCompatActivity {
         assert createStudy != null;
         createStudy.setOnClickListener(new View.OnClickListener() {
 
+            //createStudy button is clicked will send a request to the server to make a study group and will go back
+            //to StudyGroup activity
             @Override
             public void onClick(View view) {
 
-
                 class NetworkCallTask extends AsyncTask<Object, Object, Object> {
-
-
 
                     @Override
                     protected void onPreExecute() {
@@ -286,7 +286,6 @@ public class CreateStudyGroup extends AppCompatActivity {
                     @Override
                     protected Object doInBackground(Object... params) {
                         memberString = createMember.toArray(memberString);
-                        System.out.println(memberString);
                         study = new CreateStudyReq();
                         study.username = LoginInfo.username;
                         study.owner = LoginInfo.username;
@@ -318,39 +317,37 @@ public class CreateStudyGroup extends AppCompatActivity {
                     }
 
                     @Override
-                    protected void onPostExecute(Object o) {
-                        try {
-
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
+                    protected void onPostExecute(Object o) {}
                 }
                 new NetworkCallTask().execute(new Object());
             }
         });
     }
 
+    //formats the mCalender object into a readable string
     private void updateDateText(){
         String mFormat = "MM/dd/yy";
         SimpleDateFormat sdf = new SimpleDateFormat(mFormat, Locale.US);
         date.setText(sdf.format(mCalendar.getTime()));
-
         createDate = date.getText().toString();
     }
 
+    //when StudyGroup is created will send a notification when the studygroup starts
     private void makeReminder(String content){
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this,ReminderAlarmReceiver.class);
         intent.putExtra(ReminderAlarmReceiver.reminder_text, content);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this,0,intent,0);
         alarmManager.set(AlarmManager.RTC_WAKEUP,dateReminder.getTime(),pendingIntent);
-        System.out.println("IT FKIN WORKS +++++++++++++++++++++++++++++++++++++++++++++++++");
-        System.out.println("+++++++++++++++++++++++++++++++++" + dateReminder.toString());
     }
-
+    
+    /*
+        if back button is pressed without creating a studygroup, this will go back to StudyGroup activity and
+        will take it off the backstack
+     */
     public void onBackPressed(){
         Intent mIntent = new Intent(this, StudyGroupActivity.class);
         startActivity(mIntent);
+        finish();
     }
 }

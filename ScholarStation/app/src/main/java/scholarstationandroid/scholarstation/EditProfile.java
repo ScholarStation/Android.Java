@@ -6,7 +6,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
@@ -34,8 +33,8 @@ public class EditProfile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editprofile);
-        final EditText fname = (EditText) findViewById(R.id.fname_edit);
-        final EditText lname = (EditText) findViewById(R.id.profile_lname_text_edit);
+        final EditText fName = (EditText) findViewById(R.id.fname_edit);
+        final EditText lName = (EditText) findViewById(R.id.profile_lname_text_edit);
         final EditText age = (EditText) findViewById(R.id.profile_age_text_edit);
         final EditText gender = (EditText) findViewById(R.id.profile_gender_text_edit);
         final EditText email = (EditText) findViewById(R.id.profile_email_text_edit);
@@ -44,8 +43,6 @@ public class EditProfile extends AppCompatActivity {
         final Button saveProfileButton = (Button) findViewById(R.id.profile_edit_save_button);
 
         setTitle("Edit Profile");
-
-
 
         class NetworkCallTask extends AsyncTask<Object, Object, Object> {
             @Override
@@ -71,8 +68,8 @@ public class EditProfile extends AppCompatActivity {
             protected void onPostExecute(Object o) {
                 try {
                     ProfileRes profileRes = (ProfileRes) o;
-                    fname.setText(profileRes.fname);
-                    lname.setText(profileRes.lname);
+                    fName.setText(profileRes.fname);
+                    lName.setText(profileRes.lname);
                     age.setText(String.valueOf(profileRes.age));
                     gender.setText(profileRes.gender);
                     email.setText(profileRes.email);
@@ -93,13 +90,9 @@ public class EditProfile extends AppCompatActivity {
         }
         new NetworkCallTask().execute(new Object());
 
-
-
-
-        //age.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
         //<editor-fold desc="On text change">
-        assert fname != null;
-        fname.addTextChangedListener(new TextWatcher() {
+        assert fName != null;
+        fName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -107,7 +100,7 @@ public class EditProfile extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                firstName = fname.getText().toString();
+                firstName = fName.getText().toString();
             }
 
             @Override
@@ -115,8 +108,8 @@ public class EditProfile extends AppCompatActivity {
 
             }
         });
-        assert lname != null;
-        lname.addTextChangedListener(new TextWatcher() {
+        assert lName != null;
+        lName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 // Do some thing now
@@ -125,7 +118,7 @@ public class EditProfile extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                lastName = lname.getText().toString();
+                lastName = lName.getText().toString();
 
             }
 
@@ -287,5 +280,6 @@ public class EditProfile extends AppCompatActivity {
     public void onBackPressed(){
         Intent mIntent = new Intent(this, ProfileActivity.class);
         startActivity(mIntent);
+        finish();
     }
 }

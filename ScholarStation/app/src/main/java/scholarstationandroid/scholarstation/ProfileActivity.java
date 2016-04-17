@@ -38,35 +38,6 @@ public class ProfileActivity extends AppCompatActivity {
 
         setTitle(LoginInfo.username + "'s Profile");
 
-
-//
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                LoginReq login = new LoginReq();
-//                login.username = "qwex";
-//                login.password = "pass1234";
-//                LoginRes loginRes = (LoginRes)new Webutil().webRequest(login);
-//                ProfileReq pr = new ProfileReq();
-//                pr.username= login.username;
-//                pr.KEY = loginRes.KEY;
-//                ProfileRes profileRes = (ProfileRes) new Webutil().webRequest(pr);
-//                try {
-//                    fname.setText(profileRes.fname);
-//                    lname.setText(profileRes.lname);
-//                    age.setText(profileRes.age);
-//                    gender.setText(profileRes.gender);
-//                    email.setText(profileRes.email);
-//                    year.setText(profileRes.year);
-//                    major.setText(profileRes.major);
-//                }catch (Exception e){
-//                    e.printStackTrace();
-//                }
-//                return;
-//            }
-//        }).start();
-
-
         class NetworkCallTask extends AsyncTask<Object, Object, Object> {
             @Override
             protected void onPreExecute() {

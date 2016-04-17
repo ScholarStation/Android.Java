@@ -33,6 +33,7 @@ public class ViewStudyGroup extends AppCompatActivity {
             studyObject = extras.getString("ViewGroupInfo");
             StudyGroup group = new Gson().fromJson(studyObject, StudyGroup.class);
             vOwner.setText(group.owner);
+            setTitle(group.course);
             vCourse.setText(group.course);
             vTopic.setText(group.topic);
             vDate.setText(group.date);

@@ -33,7 +33,6 @@ public class FeedbackList extends AppCompatActivity {
     FBAdapter fbAdapter;
     ArrayList<Reminders> remindersArrayList = new ArrayList<>();
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,7 +78,6 @@ public class FeedbackList extends AppCompatActivity {
                         fbAdapter.notifyDataSetChanged();
                     }
                 });
-
             }
         }
         new NetworkCallTask().execute(this);
@@ -119,9 +117,6 @@ public class FeedbackList extends AppCompatActivity {
             });
             return convertView;
         }
-
-
-
     }
 
     public RemindersGetRes updateUI(){
@@ -133,7 +128,6 @@ public class FeedbackList extends AppCompatActivity {
         remindersGetRes  = (RemindersGetRes) new Webutil().webRequest(remindersGetReq);
         return remindersGetRes;
     }
-
 }
 
 
