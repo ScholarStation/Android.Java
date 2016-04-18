@@ -8,7 +8,7 @@
             android:title="Profile" />
         <item
             android:id="@+id/nav_study"
-            android:icon="@drawable/ic_action_sgicon"
+            android:icon="@drawable/book_icon"
             android:title="Study Groups" />
         <item
             android:id="@+id/nav_feedback"
