@@ -33,10 +33,6 @@ import layout.LoginInfo;
 
 public class EditStudyGroup extends AppCompatActivity {
     final Context context = this;
-    String editCourse;
-    String editTopic;
-    String editTime;
-    String editDate;
     String id = "";
     TextView members;
     EditStudyReq editstudy;
@@ -83,18 +79,10 @@ public class EditStudyGroup extends AppCompatActivity {
             for (String s : group.members) {
                 editMember.add(s);
             }
-           // memberString = editMember.toArray(memberString);
-            System.out.println("NEW STRING HERE " + memberString.toString());
-            //editstudy.members = memberString;
             editstudy.date = group.date;
             editstudy.time = group.time;
             editstudy.publicView = publicView;
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!" + editstudy);
-
-
             members.setText(Arrays.toString(group.members).replace("[", "").replace(',', '\n').replace("]", "").replace(" ", ""));
-
-
         }
 
         mCalendar  = Calendar.getInstance();
@@ -108,7 +96,6 @@ public class EditStudyGroup extends AppCompatActivity {
             }
         };
 
-
         final TimePickerDialog.OnTimeSetListener timePicker = new TimePickerDialog.OnTimeSetListener(){
             @Override
             public void onTimeSet(TimePicker view, int hour, int minute){
@@ -121,6 +108,7 @@ public class EditStudyGroup extends AppCompatActivity {
                     hour = hour - 12;
                 //corrects minutes to the correct format 0-> 00
                 String formattedMinutes;
+                //<editor-fold desc="switch for format minutes">
                 switch (minute) {
                     case 0:
                         formattedMinutes = "00";
@@ -156,7 +144,7 @@ public class EditStudyGroup extends AppCompatActivity {
                         formattedMinutes = Integer.toString(minute);
                         break;
                 }
-
+                //</editor-fold>
                 time.setText(hour + ":" + formattedMinutes);
             }
         };
@@ -181,11 +169,12 @@ public class EditStudyGroup extends AppCompatActivity {
             }
         });
 
+        //<editor-fold desc="Text change listener">
         assert course != null;
         course.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // Do some thing now
+                // Will do something before text change
             }
 
             @Override
@@ -197,14 +186,14 @@ public class EditStudyGroup extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                // Do something at this time
+                // Will do something after text change
             }
         });
         assert topic != null;
         topic.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // Do some thing now
+                // Will do something before text change
             }
 
             @Override
@@ -223,7 +212,7 @@ public class EditStudyGroup extends AppCompatActivity {
         time.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // Do some thing now
+                // Will do something before text change
             }
 
             @Override
@@ -257,6 +246,7 @@ public class EditStudyGroup extends AppCompatActivity {
                 // Do something at this time
             }
         });
+        //</editor-fold>
 
         assert membersButton!= null;
         membersButton.setOnClickListener(new View.OnClickListener() {
@@ -297,7 +287,6 @@ public class EditStudyGroup extends AppCompatActivity {
                 });
                 dialog.show();
             }
-
         });
         assert editStudy != null;
         editStudy.setOnClickListener(new View.OnClickListener() {
@@ -306,7 +295,6 @@ public class EditStudyGroup extends AppCompatActivity {
             public void onClick(View view) {
 
                 class NetworkCallTask extends AsyncTask<Object, Object, Object> {
-
 
                     @Override
                     protected void onPreExecute() {
@@ -330,7 +318,6 @@ public class EditStudyGroup extends AppCompatActivity {
                             System.out.println("Failed To Edit Study Group");
                         }
                         return editRes;
-
                     }
 
                     @Override
@@ -339,13 +326,7 @@ public class EditStudyGroup extends AppCompatActivity {
                     }
 
                     @Override
-                    protected void onPostExecute(Object o) {
-                        try {
-
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
+                    protected void onPostExecute(Object o) {}
                 }
                 new NetworkCallTask().execute(new Object());
             }
@@ -361,5 +342,6 @@ public class EditStudyGroup extends AppCompatActivity {
     public void onBackPressed(){
         Intent mIntent = new Intent(this, StudyGroupActivity.class);
         startActivity(mIntent);
+        finish();
     }
 }

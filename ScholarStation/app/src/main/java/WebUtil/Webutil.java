@@ -70,15 +70,12 @@ public class Webutil {
     private String FeedbackDel = "http://70.187.52.39:3000/FeedBackUtility/DeleteByID";
     private String RemindersGet = "http://70.187.52.39:3000/FeedBackUtility/GetReminders";
 
-
     public Object webRequest(WebRequest payload){
 
         Gson gson = new Gson();
-
         HttpPost post = new HttpPost();
         HttpClient client = new DefaultHttpClient();
         Object returnType =WebResponse.class;
-
 
         //determine the path
         if (payload instanceof LoginReq){
@@ -123,25 +120,18 @@ public class Webutil {
         }else if(payload instanceof RemindersGetReq){
             post = new HttpPost(RemindersGet);
             returnType  = new RemindersGetRes();
-
         }
-
 
         try {
             StringEntity gsonString = new StringEntity(gson.toJson(payload));
             post.setEntity(gsonString);
             post.setHeader("Content-type", "application/json");
             HttpResponse response = client.execute(post);
-            //System.out.println();
-            //System.out.println("Error :: "  + new BufferedReader(new InputStreamReader(response.getEntity().getContent())).readLine());
             return gson.fromJson(new BufferedReader(new InputStreamReader(response.getEntity().getContent())).readLine(),returnType.getClass()) ;
 
         } catch (Exception e) {
             e.printStackTrace();
             return e;
         }
-
-
-
     }
 }

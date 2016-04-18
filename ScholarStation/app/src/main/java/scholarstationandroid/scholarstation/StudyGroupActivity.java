@@ -1,9 +1,9 @@
 package scholarstationandroid.scholarstation;
 
-import android.content.Context;
+
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Movie;
+
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -15,24 +15,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.Adapter;
 import android.support.v7.widget.Toolbar;
-import android.view.GestureDetector;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.google.gson.Gson;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
-import WebUtil.Login.LoginReq;
-import WebUtil.Login.LoginRes;
 import WebUtil.StudySession.DeleteStudyReq;
 import WebUtil.StudySession.DeleteStudyRes;
 import WebUtil.StudySession.StudyGroupReq;
@@ -45,24 +35,25 @@ import WebUtil.StudySession.StudyGroup;
 public class StudyGroupActivity extends AppCompatActivity {
 
     private List<StudyGroup> groupList = new ArrayList<>();
-    private RecyclerView Rview;
+    private RecyclerView rView;
     private Adapter SGAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("Study Groups");
         setContentView(R.layout.activity_study_group);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Rview = (RecyclerView) findViewById(R.id.recycler_view);
+        rView = (RecyclerView) findViewById(R.id.recycler_view);
         final Button searchButton = (Button)findViewById(R.id.studySearchButton);
         SGAdapter = new SGAdapter(groupList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-        Rview.setLayoutManager(mLayoutManager);
-        Rview.setItemAnimator(new DefaultItemAnimator());
-        Rview.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
-        Rview.setAdapter(SGAdapter);
+        rView.setLayoutManager(mLayoutManager);
+        rView.setItemAnimator(new DefaultItemAnimator());
+        rView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
+        rView.setAdapter(SGAdapter);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         if (fab != null) {
@@ -77,6 +68,7 @@ public class StudyGroupActivity extends AppCompatActivity {
                     }
             );
         }
+
         assert searchButton != null;
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,9 +78,8 @@ public class StudyGroupActivity extends AppCompatActivity {
                 finish();
             }
         });
+
         class NetworkCallTask extends AsyncTask<Object, Object, Object> {
-
-
 
             @Override
             protected void onPreExecute() {
@@ -105,9 +96,6 @@ public class StudyGroupActivity extends AppCompatActivity {
 
             @Override
             protected void onPostExecute(Object o) {
-               // SGAdapter.notifyDataSetChanged();
-
-
                 StudyGroupRes studyGroupRes = (StudyGroupRes)o;
                 try {
                     System.out.println("Gotten study Groups"+studyGroupRes.toString());
@@ -126,32 +114,10 @@ public class StudyGroupActivity extends AppCompatActivity {
             }
         }
         new NetworkCallTask().execute(this);
-
-        /*Rview.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), Rview, new ClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                StudyGroup group = groupList.get(position);
-                Toast.makeText(getApplicationContext(), group.getTitle() + " is selected!", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onLongClick(View view, int position) {
-
-            }
-        }));*/
-
-       // prepareStudyData();
     }
 
-    public void setAddGroupButton(){
-
-    }
     class SGAdapter extends RecyclerView.Adapter<SGAdapter.MyViewHolder> {
         private List<StudyGroup> groupList;
-        StudyGroup group;
-
-
-        int Posistion;
 
         public class MyViewHolder extends RecyclerView.ViewHolder {
             public TextView title, subject, date;
@@ -177,9 +143,6 @@ public class StudyGroupActivity extends AppCompatActivity {
         @Override
         public MyViewHolder onCreateViewHolder(ViewGroup parent, final int viewType) {
             View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.studygroup_list_row, parent, false);
-
-
-
             return new MyViewHolder(itemView);
         }
 
@@ -195,7 +158,6 @@ public class StudyGroupActivity extends AppCompatActivity {
                     myIntent.putExtra("ViewGroupInfo", new Gson().toJson(groupList.get(position)));
                     myIntent.putExtras(bundle);
                     startActivity(myIntent);
-
                 }
             });
 
@@ -219,7 +181,6 @@ public class StudyGroupActivity extends AppCompatActivity {
                                 finish();
 
                             } else {
-                                //System.out.println("This is group ID " + groupList.get(viewType)._id + "=========================");
                                 class NetworkCallTask extends AsyncTask<Object, Object, Object> {
                                     @Override
                                     protected void onPreExecute() {
@@ -233,9 +194,7 @@ public class StudyGroupActivity extends AppCompatActivity {
                                         req.KEY = LoginInfo.KEY;
                                         req.username = LoginInfo.username;
                                         DeleteStudyRes deleteStudyRes = (DeleteStudyRes) new Webutil().webRequest(req);
-
                                         return updateUI() ;
-
                                     }
 
                                     @Override
@@ -246,20 +205,13 @@ public class StudyGroupActivity extends AppCompatActivity {
                                     @Override
                                     protected void onPostExecute(Object o) {
                                         try {
-                                            System.out.println("We Deleted IT==========================================");
                                             StudyGroupRes studyGroupRes = (StudyGroupRes)o;
                                             groupList=new ArrayList<>();
                                             try {
-                                                System.out.println("Gotten study Groups"+studyGroupRes.toString());
-
                                                 for(WebUtil.StudySession.StudyGroup sg: studyGroupRes.studyGroups){
-                                                    System.out.println("ADDING THEM TO THE LIST ");
-                                                    System.out.println("GROUP ID IS " + sg._id);
                                                     groupList.add(sg);
                                                     SGAdapter.notifyDataSetChanged();
                                                 }
-                                                System.out.println("NEW GROUP LIST IS !!!!!! "+groupList.toString());
-
                                             } catch (Exception e) {
                                                 e.printStackTrace();
                                             }
@@ -277,12 +229,9 @@ public class StudyGroupActivity extends AppCompatActivity {
                                     }
                                 }
                                 new NetworkCallTask().execute(new Object());
-
                             }
-
                         }
                     });
-
                     builder.show();
                     return true;
                 }
@@ -298,13 +247,8 @@ public class StudyGroupActivity extends AppCompatActivity {
         public int getItemCount() {
             return groupList.size();
         }
-
-
-
-
     }
     //Makes web req and updates the UI with new SG
-    //MUST CALL SGAdapter.notifyDataSetChanged() ON GUI THREAD TO SEE UPDATES!!!!!!!!!!!!!
     public StudyGroupRes updateUI(){
 
         StudyGroupRes studyGroupRes;
@@ -312,16 +256,7 @@ public class StudyGroupActivity extends AppCompatActivity {
         studyGroupReq.username=LoginInfo.username;
         studyGroupReq.KEY= LoginInfo.KEY;
         studyGroupRes = (StudyGroupRes) new Webutil().webRequest(studyGroupReq);
-       // groupList=new ArrayList<>();
         return studyGroupRes;
-
-//        for(WebUtil.StudySession.StudyGroup sg: studyGroupRes.studyGroups){
-//            System.out.println("ADDING THEM TO THE LIST ");
-//            System.out.println("GROUP IS " + sg.toString());
-//            groupList.add(sg);
-//            //SGAdapter.notifyDataSetChanged();
-//        }
-
     }
 }
 

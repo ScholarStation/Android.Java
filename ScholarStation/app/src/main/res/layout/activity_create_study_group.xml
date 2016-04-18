@@ -67,11 +67,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="95dp">
 
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Members Goes Here"
+                    android:hint="Members"
                     android:id="@+id/createStudyMembers" />
+                </android.support.design.widget.TextInputLayout>
             </LinearLayout>
 
             <Button

@@ -1,6 +1,5 @@
 package scholarstationandroid.scholarstation;
 
-//import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
         import android.os.AsyncTask;
@@ -34,8 +33,7 @@ public class LoginActivity extends AppCompatActivity {
         final Button signIn = (Button) findViewById(R.id.signInButton);
         final Button register = (Button) findViewById(R.id.registerButton);
 
-
-
+        setTitle("Login");
 
         //<editor-fold desc="Get Text">
         assert user != null;
@@ -85,8 +83,6 @@ public class LoginActivity extends AppCompatActivity {
 
                 class NetworkCallTask extends AsyncTask<Object, Object, Object> {
 
-
-
                     @Override
                     protected void onPreExecute() {
                         super.onPreExecute();
@@ -101,7 +97,6 @@ public class LoginActivity extends AppCompatActivity {
                         LoginRes loginRes = (LoginRes) new Webutil().webRequest(login);
                         LoginInfo.username = userName;
                         LoginInfo.reminders = loginRes.reminders;
-                        System.out.println(loginRes.reminders + "+++++++++++++++++++++++++++++++++++++++++++");
                         LoginInfo.KEY = loginRes.KEY;
 
                         if (loginRes.success == true) {
@@ -113,11 +108,9 @@ public class LoginActivity extends AppCompatActivity {
                                 public void run() {
                                     Snackbar snackbar = Snackbar.make(findViewById(R.id.loginCoordinator),"Enter valid login and password",Snackbar.LENGTH_LONG);
                                     snackbar.show();
-
                                 }
                             });
                         }
-
                         return loginRes;
                     }
 
@@ -127,15 +120,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    protected void onPostExecute(Object o) {
-                        try {
-                            //System.out.println("UserName :: " + userName);
-                            // System.out.println("Password :: " + passWord);
-
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
+                    protected void onPostExecute(Object o) {}
                 }
                 new NetworkCallTask().execute(new Object());
             }

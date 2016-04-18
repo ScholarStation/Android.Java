@@ -38,13 +38,13 @@ public class Feedback_form extends AppCompatActivity {
     String getExtras;
     String id;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feedback_form);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        setTitle("Feedback Form");
 
         final RatingBar rateStudyGroup = (RatingBar) findViewById(R.id.ratingBar);
         final CheckBox prepareCheckBox = (CheckBox) findViewById(R.id.prepareCheck);
@@ -58,10 +58,6 @@ public class Feedback_form extends AppCompatActivity {
             fbCourse = remind.course;
             id = remind._id;
         }
-
-
-
-        setTitle("Feedback Form");
 
         assert rateStudyGroup != null;
         rateStudyGroup.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
@@ -122,7 +118,6 @@ public class Feedback_form extends AppCompatActivity {
                         FeedBackRes feedBackRes = (FeedBackRes) new Webutil().webRequest(feedBackReq);
 
                         if(feedBackRes.success == true){
-                            System.out.println("WE MADE IT ++++++++++++++++++++++++++++++++++++");
                             DeleteFeedbackReq deleteFeedbackReq = new DeleteFeedbackReq();
                             deleteFeedbackReq._id = id;
                             deleteFeedbackReq.KEY = LoginInfo.KEY;
@@ -135,16 +130,16 @@ public class Feedback_form extends AppCompatActivity {
                             finish();
                         }
                         return feedBackRes;
-
-
                     }
                 }
                 new NetworkCallTask().execute(new Object());
             }
         });
-
-
-
     }
 
+    public void onBackPressed(){
+        Intent mIntent = new Intent(this, FeedbackList.class);
+        startActivity(mIntent);
+        finish();
+    }
 }
